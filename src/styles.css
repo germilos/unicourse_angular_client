@@ -1,0 +1,16 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import "~bootstrap/dist/css/bootstrap.css";
+
+body {
+  font-family: Roboto, sans-serif;
+  margin-left: 170pt;
+  margin-right: 170pt;
+}
+
+.footer {
+  height: 50pt;
+  width: 100%;
+  background-color:white;
+  text-align: center;
+}
