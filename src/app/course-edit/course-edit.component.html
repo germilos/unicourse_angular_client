@@ -1,15 +1,15 @@
 <form [formGroup]="courseForm" (ngSubmit)="save()">
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name..."/>
+    <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name..." />
   </div>
   <div class="form-group">
     <label for="ESPB">ESPB</label>
-    <input type="number" formControlName="espb" class="form-control" id="ESPB" placeholder="ESPB..."/>
+    <input type="number" formControlName="espb" class="form-control" id="ESPB" placeholder="ESPB..." />
   </div>
   <div class="form-group">
     <label for="goal">Goal</label>
-    <input type="text" formControlName="goal" class="form-control" id="goal" placeholder="Goal..."/>
+    <input type="text" formControlName="goal" class="form-control" id="goal" placeholder="Goal..." />
   </div>
   <div class="form-group">
     <label for="status">Status</label>
@@ -35,16 +35,6 @@
     </select>
   </div>
   <button type="submit" class="btn btn-primary">Save</button>
-  
-  <!-- <div class="course-units">
-    <ul class="list-group" id="units" [(ngModel)]="course.units" name="units">
-      <li class="list-group-item">
-        <input type="number" />
-        <input type="text" />
-        <input type="text" />
-      </li>
-    </ul>
-  </div> -->
   <div formArrayName="courseUnits" *ngFor="let unit of courseForm.get('courseUnits').controls; let i = index;">
     <div [formGroupName]="i">
       <input type="number" formControlName="number" placeholder="Unit number">
@@ -52,7 +42,35 @@
       <input formControlName="description" placeholder="Unit description">
       <button type="button" (click)="deleteItem(i)" class="btn btn-info">Delete unit</button>
     </div>
-    Chosen name: {{ courseForm.controls.courseUnits.controls[i].controls.name.value }}
   </div>
+  <div formArrayName="courseUnits" *ngFor="let unit of courseForm.get('courseUnits').controls; let i = index;">
+      <div [formGroupName]="i">
+        <input type="number" formControlName="number" placeholder="Unit number">
+        <input formControlName="name" placeholder="Unit name">
+        <input formControlName="description" placeholder="Unit description">
+        <button type="button" (click)="deleteItem(i)" class="btn btn-info">Delete unit</button>
+      </div>
+    </div>
+  <!-- <div class="form-group">
+    <label for="selectLecturers">Lecturer</label>
+    <select class="selectpicker" formControlName="selectLecturers" multiple data-live-search="true" id="selectLecturers">
+      <option *ngFor="let lecturer of lecturers" [ngValue]="selectLecturers">
+        {{lecturer.nameSurname}}
+      </option>
+    </select> -->
+    <!-- <select [(ngModel)]="selectLecturers" class="selectpicker" multiple data-live-search="true" id="selectLecturers">
+        <option *ngFor="let lecturer of lecturers">
+          {{lecturer.nameSurname}}
+        </option>
+      </select>
+      {{ selectLecturers }} -->
+  <!-- </div> -->
+  <button type="button" (click)="transfer(left)" class="list-transfer-btn"><span>L</span></button>
+  <button type="button" (click)="transfer(right)" class="list-transfer-btn"><span>R</span></button>
+  <button type="button" (click)="transfer(fullLeft)" class="list-transfer-btn">FULL L</button>
+  <button type="button" (click)="transfer(fullRight)" class="list-transfer-btn">FULL R</button>
+  <select class="selectpicker" formControlName="lecturer" multiple data-live-search="true">
+
+  </select>
 </form>
 <button (click)="addItem()" class="btn btn-primary">Add Unit</button>

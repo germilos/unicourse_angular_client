@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../shared/course/course.service';
 import { StudyProgramService } from '../shared/study-program/study-program.service';
 import { DepartmentService } from '../shared/department/department.service';
+import { LecturerService } from '../shared/lecturer/lecturer.service';
 import { NgForm, FormBuilder, FormArray, FormGroup } from '@angular/forms';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-course-edit',
@@ -17,8 +17,18 @@ export class CourseEditComponent implements OnInit {
   course: any = {};
   studyPrograms: Array<any>;
   departments: Array<any>;
-  courseForm: FormGroup;
-  courseUnits: FormArray;
+  lecturers: Array<any>;
+  courseForm: FormGroup = this.formBuilder.group({
+    name: '',
+    espb: '',
+    goal: '',
+    status: '',
+    department: '',
+    studyProgram: '',
+    selectLecturers: this.formBuilder.array([{}]),
+    courseUnits: this.formBuilder.array([this.createItem()])
+  });
+  // courseUnits: FormArray;
   sub: Subscription;
 
   constructor(private route: ActivatedRoute,
@@ -26,19 +36,11 @@ export class CourseEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private courseService: CourseService,
     private studyProgramService: StudyProgramService,
+    private lecturerService: LecturerService,
     private departmentService: DepartmentService) {
   }
 
-  ngOnInit() {
-    this.courseForm = this.formBuilder.group({
-      name: '',
-      espb: '',
-      goal: '',
-      status: '',
-      department: '',
-      studyProgram: '',
-      courseUnits: this.formBuilder.array([this.createItem()])
-    });
+  executeServices() {
     this.studyProgramService.getAll().subscribe((studyPrograms) => {
       if (studyPrograms) {
         this.studyPrograms = studyPrograms;
@@ -55,6 +57,23 @@ export class CourseEditComponent implements OnInit {
         this.gotoList();
       }
     });
+    this.lecturerService.getAll().subscribe((lecturers) => {
+      if (lecturers) {
+        this.lecturers = lecturers;
+        console.log("LLecturers in service: ", this.lecturers);
+        this.populateSelectLecturers();
+
+      } else {
+        console.log(`There was an error loading lecturers, returning to course list`);
+        this.gotoList();
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.executeServices();
+
+
     this.sub = this.route.params.subscribe(params => {
       const id = params['id'];
       if (id) {
@@ -85,12 +104,25 @@ export class CourseEditComponent implements OnInit {
     });
   }
 
-  // Template form 
-  // save(form: NgForm) {
-  //   this.courseService.save(form).subscribe(result => {
-  //     this.gotoList();
-  //   }, error => console.error(error));
-  // }
+  populateSelectLecturers() {
+    let selectLecturers = this.courseForm.get('selectLecturers') as FormArray;
+    selectLecturers.removeAt(0);
+    console.log("LECTURERS", this.lecturers);
+    for (let i = 0; i < this.lecturers.length; i++) {
+      let newGroup = this.formBuilder.group({
+        id: this.lecturers[i].id,
+        type: this.lecturers[i].type,
+        nameSurname: this.lecturers[i].nameSurname,
+        studyField: this.lecturers[i].studyField,
+        department: this.lecturers[i].department,
+        position: this.lecturers[i].position ? this.lecturers[i].position : null,
+        researchNumber: this.lecturers[i].researchNumber ? this.lecturers[i].researchNumber : null,
+        diploma: this.lecturers[i].diploma ? this.lecturers[i].diploma : null
+      })
+      selectLecturers.push(newGroup);
+    }
+    console.log("Lecturers array: ", selectLecturers);
+  }
 
   save() {
     console.log(this.courseForm.value);
@@ -113,35 +145,24 @@ export class CourseEditComponent implements OnInit {
 
   deleteItem(number): void {
     let numbers, index;
-    // this.courseUnits = this.courseForm.get('courseUnits') as FormArray;
-    console.log("-----" + this.courseUnits.controls)
-    // numbers = this.courseUnits.value.map(current => {
     numbers = this.courseUnits.controls.map(current => {
       return current['controls'].number.value;
     })
-    // })
-    console.log("BROJEVI PRE", numbers);
+
     index = numbers.indexOf(number + 1);
     if (index !== -1) {
-      console.log("INDEX: " + index);
       this.courseUnits.removeAt(index);
     }
-    console.log("COURSE UNITS: ", this.courseUnits);
-    // numbers = this.courseUnits.value.map(current => {
-    //   return current.number;
-    // })
-    numbers = this.courseUnits.controls.map(current => {
-      return current['controls'].number.value;
-    })
-    console.log("BROJEVI POSLE: " + numbers);
-    // console.log("DUZINA: " + this.courseUnits.controls.length)
+
     for (let i = 1; i <= this.courseUnits.controls.length; i++) {
-      // console.log("Unit: ", this.courseUnits.controls[i-1]);
-      this.courseUnits.controls[i-1]['controls'].number.setValue(i);
-      // this.courseUnits.controls[i-1].value.number = i;
-      // console.log("Unit after: ", this.courseUnits.controls[i-1]);
+      this.courseUnits.controls[i - 1]['controls'].number.setValue(i);
     }
-    console.log("-----+++", this.courseUnits);
-    console.log(this.courseForm.value);
+  }
+
+  transfer(type): void {
+    // Take elements from <type> select
+
+    // Transfer them to <type-opposite> select
+
   }
 }

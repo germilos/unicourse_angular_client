@@ -21,7 +21,7 @@ export class CourseService {
 
   save(course: any): Observable<any> {
     let result: Observable<Object>;
-    console.log(course);
+    console.log("Course in service:" + course);
     if (course['id']) {
       result = this.http.put(this.COURSE_API, course);
     } else {
