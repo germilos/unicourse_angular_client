@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CourseService } from '../shared/course/course.service';
 import { StudyProgramService } from '../shared/study-program/study-program.service';
 import { DepartmentService } from '../shared/department/department.service';
+import { LecturerService } from '../shared/lecturer/lecturer.service';
 import { NgForm, FormBuilder, FormArray, FormGroup } from '@angular/forms';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-course-edit',
@@ -17,6 +17,8 @@ export class CourseEditComponent implements OnInit {
   course: any = {};
   studyPrograms: Array<any>;
   departments: Array<any>;
+  lecturers: Array<any>;
+  selectedLecturers: Array<any>;
   courseForm: FormGroup;
   courseUnits: FormArray;
   sub: Subscription;
@@ -26,6 +28,7 @@ export class CourseEditComponent implements OnInit {
     private formBuilder: FormBuilder,
     private courseService: CourseService,
     private studyProgramService: StudyProgramService,
+    private lecturerService: LecturerService,
     private departmentService: DepartmentService) {
   }
 
@@ -37,6 +40,8 @@ export class CourseEditComponent implements OnInit {
       status: '',
       department: '',
       studyProgram: '',
+      selectLecturers: [],
+      lecturers: [],
       courseUnits: this.formBuilder.array([this.createItem()])
     });
     this.studyProgramService.getAll().subscribe((studyPrograms) => {
@@ -52,6 +57,14 @@ export class CourseEditComponent implements OnInit {
         this.departments = departments;
       } else {
         console.log(`There was an error loading departments, returning to course list`);
+        this.gotoList();
+      }
+    });
+    this.lecturerService.getAll().subscribe((lecturers) => {
+      if (lecturers) {
+        this.lecturers = lecturers;
+      } else {
+        console.log(`There was an error loading lecturers, returning to course list`);
         this.gotoList();
       }
     });
@@ -72,6 +85,26 @@ export class CourseEditComponent implements OnInit {
     });
   }
 
+  swapLecturers() {
+    
+    // TODO: Refactor for immutability
+    let lecturersForSwap = this.courseForm.controls.selectLecturers;
+    if (this.courseForm.controls.lecturers.value) {
+      for (let i = 0; i < lecturersForSwap.value.length; i++) {
+        this.courseForm.controls.lecturers.value.push(lecturersForSwap.value[i]);
+        this.selectedLecturers.push(lecturersForSwap.value[i]);
+        this.courseForm.controls.selectLecturers.value.splice(this.courseForm.controls.selectLecturers.value.indexOf(lecturersForSwap.value[i]), 1);
+        this.lecturers.splice(this.lecturers.indexOf(lecturersForSwap.value[i]), 1);
+      }
+    } else {
+      this.courseForm.controls.lecturers = lecturersForSwap;
+      this.selectedLecturers = this.courseForm.controls.lecturers.value;
+      for (let i = 0; i < this.lecturers.length; i++) {
+        this.lecturers.splice(this.lecturers.indexOf(this.lecturers[i]), 1);
+      }
+    }
+  }
+
   gotoList() {
     this.router.navigate(['/courses']);
   }
@@ -84,13 +117,6 @@ export class CourseEditComponent implements OnInit {
       description: ''
     });
   }
-
-  // Template form 
-  // save(form: NgForm) {
-  //   this.courseService.save(form).subscribe(result => {
-  //     this.gotoList();
-  //   }, error => console.error(error));
-  // }
 
   save() {
     console.log(this.courseForm.value);
@@ -113,35 +139,20 @@ export class CourseEditComponent implements OnInit {
 
   deleteItem(number): void {
     let numbers, index;
-    // this.courseUnits = this.courseForm.get('courseUnits') as FormArray;
-    console.log("-----" + this.courseUnits.controls)
-    // numbers = this.courseUnits.value.map(current => {
     numbers = this.courseUnits.controls.map(current => {
       return current['controls'].number.value;
     })
-    // })
-    console.log("BROJEVI PRE", numbers);
+
     index = numbers.indexOf(number + 1);
     if (index !== -1) {
-      console.log("INDEX: " + index);
       this.courseUnits.removeAt(index);
     }
-    console.log("COURSE UNITS: ", this.courseUnits);
-    // numbers = this.courseUnits.value.map(current => {
-    //   return current.number;
-    // })
     numbers = this.courseUnits.controls.map(current => {
       return current['controls'].number.value;
     })
-    console.log("BROJEVI POSLE: " + numbers);
-    // console.log("DUZINA: " + this.courseUnits.controls.length)
+
     for (let i = 1; i <= this.courseUnits.controls.length; i++) {
-      // console.log("Unit: ", this.courseUnits.controls[i-1]);
       this.courseUnits.controls[i-1]['controls'].number.setValue(i);
-      // this.courseUnits.controls[i-1].value.number = i;
-      // console.log("Unit after: ", this.courseUnits.controls[i-1]);
     }
-    console.log("-----+++", this.courseUnits);
-    console.log(this.courseForm.value);
   }
 }
