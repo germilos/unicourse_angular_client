@@ -56,8 +56,8 @@
   </div>
   <button type="button" (click)="swapLecturers('selectLecturers', 'lecturers')" class="list-transfer-btn"><span>L</span></button>
   <button type="button" (click)="swapLecturers('lecturers', 'selectLecturers')" class="list-transfer-btn"><span>R</span></button>
-  <button type="button" (click)="transfer(fullLeft)" class="list-transfer-btn">FULL L</button>
-  <button type="button" (click)="transfer(fullRight)" class="list-transfer-btn">FULL R</button>
+  <button type="button" (click)="swapLecturersAll('selectLecturers', 'lecturers')" class="list-transfer-btn">FULL L</button>
+  <button type="button" (click)="swapLecturersAll('lecturers', 'selectLecturers')" class="list-transfer-btn">FULL R</button>
   <div formArrayName="courseUnits" *ngFor="let unit of courseForm.get('courseUnits').controls; let i = index;">
     <div [formGroupName]="i">
       <input type="number" formControlName="number" placeholder="Unit number">
