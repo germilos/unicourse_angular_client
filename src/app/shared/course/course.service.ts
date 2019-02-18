@@ -22,6 +22,8 @@ export class CourseService {
   save(course: any): Observable<any> {
     let result: Observable<Object>;
     console.log(course);
+    // Remove 'selectLecturers' attribute - only used for list swap
+    delete course.selectLecturers;
     if (course['id']) {
       result = this.http.put(this.COURSE_API, course);
     } else {

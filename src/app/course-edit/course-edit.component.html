@@ -49,7 +49,7 @@
     <label for="lecturers">Selected Lecturers</label>
     <select class="selectpicker" multiple data-live-search="true" formControlName="lecturers"
       id="lecturers">
-      <option selected *ngFor="let lecturer of lecturers" [ngValue]="lecturer">
+      <option *ngFor="let lecturer of lecturers" [ngValue]="lecturer" selected>
         {{lecturer.nameSurname}}
       </option>
     </select>
