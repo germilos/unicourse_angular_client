@@ -17,8 +17,8 @@ export class CourseEditComponent implements OnInit {
   course: any = {};
   studyPrograms: Array<any>;
   departments: Array<any>;
+  selectLecturers: Array<any>;
   lecturers: Array<any>;
-  selectedLecturers: Array<any>;
   courseForm: FormGroup;
   courseUnits: FormArray;
   sub: Subscription;
@@ -62,7 +62,7 @@ export class CourseEditComponent implements OnInit {
     });
     this.lecturerService.getAll().subscribe((lecturers) => {
       if (lecturers) {
-        this.lecturers = lecturers;
+        this.selectLecturers = lecturers;
       } else {
         console.log(`There was an error loading lecturers, returning to course list`);
         this.gotoList();
@@ -85,22 +85,42 @@ export class CourseEditComponent implements OnInit {
     });
   }
 
-  swapLecturers() {
+  // swapLecturers(from: string, to: string) {
+    
+  //   // TODO: Refactor for immutability
+  //   let lecturersForSwap = this.courseForm.controls.selectLecturers;
+  //   if (this.courseForm.controls.lecturers.value) {
+  //     for (let i = 0; i < lecturersForSwap.value.length; i++) {
+  //       this.courseForm.controls.lecturers.value.push(lecturersForSwap.value[i]);
+  //       this.lecturers.push(lecturersForSwap.value[i]);
+  //       this.courseForm.controls.selectLecturers.value.splice(this.courseForm.controls.selectLecturers.value.indexOf(lecturersForSwap.value[i]), 1);
+  //       this.selectLecturers.splice(this.selectLecturers.indexOf(lecturersForSwap.value[i]), 1);
+  //     }
+  //   } else {
+  //     this.courseForm.controls.lecturers = lecturersForSwap;
+  //     this.lecturers = this.courseForm.controls.lecturers.value;
+  //     for (let i = 0; i < this.lecturers.length; i++) {
+  //       this.selectLecturers.splice(this.selectLecturers.indexOf(this.lecturers[i]), 1);
+  //     }
+  //   }
+  // }
+
+  swapLecturers(from: string, to: string) {
     
     // TODO: Refactor for immutability
-    let lecturersForSwap = this.courseForm.controls.selectLecturers;
-    if (this.courseForm.controls.lecturers.value) {
+    let lecturersForSwap = this.courseForm.controls[from];
+    if (this.courseForm.controls[to].value) {
       for (let i = 0; i < lecturersForSwap.value.length; i++) {
-        this.courseForm.controls.lecturers.value.push(lecturersForSwap.value[i]);
-        this.selectedLecturers.push(lecturersForSwap.value[i]);
-        this.courseForm.controls.selectLecturers.value.splice(this.courseForm.controls.selectLecturers.value.indexOf(lecturersForSwap.value[i]), 1);
-        this.lecturers.splice(this.lecturers.indexOf(lecturersForSwap.value[i]), 1);
+        this.courseForm.controls[to].value.push(lecturersForSwap.value[i]);
+        this[to].push(lecturersForSwap.value[i]);
+        this.courseForm.controls[from].value.splice(this.courseForm.controls[from].value.indexOf(lecturersForSwap.value[i]), 1);
+        this[from].splice(this[from].indexOf(lecturersForSwap.value[i]), 1);
       }
     } else {
-      this.courseForm.controls.lecturers = lecturersForSwap;
-      this.selectedLecturers = this.courseForm.controls.lecturers.value;
-      for (let i = 0; i < this.lecturers.length; i++) {
-        this.lecturers.splice(this.lecturers.indexOf(this.lecturers[i]), 1);
+      this.courseForm.controls[to] = lecturersForSwap;
+      this[to] = this.courseForm.controls[to].value;
+      for (let i = 0; i < this[to].length; i++) {
+        this[from].splice(this[from].indexOf(this[to][i]), 1);
       }
     }
   }
