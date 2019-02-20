@@ -24,6 +24,10 @@ const appRoutes: Routes = [
       {
         path: 'course-add',
         component: CourseEditComponent
+      },
+      {
+        path: 'course-edit/:id',
+        component: CourseEditComponent
       }
     ]
   }

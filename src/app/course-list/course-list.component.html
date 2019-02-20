@@ -13,6 +13,7 @@
       <td>{{ course.name }}</td>
       <td>{{ course.status }}</td>
       <td>{{ course.espb }}</td>
+      <td><button class="btn btn-info" [routerLink]="['course-edit', course.id]"></button></td>
     </tr>
   </tbody>
 </table>

@@ -5,7 +5,7 @@ import { CourseService } from '../shared/course/course.service';
 import { StudyProgramService } from '../shared/study-program/study-program.service';
 import { DepartmentService } from '../shared/department/department.service';
 import { LecturerService } from '../shared/lecturer/lecturer.service';
-import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-course-edit',
@@ -58,6 +58,7 @@ export class CourseEditComponent implements OnInit {
     this.departmentService.getAll().subscribe(departments => {
       if (departments) {
         this.departments = departments;
+        
       } else {
         console.log(
           `There was an error loading departments, returning to course list`
@@ -84,7 +85,34 @@ export class CourseEditComponent implements OnInit {
         this.courseService.get(id).subscribe((course: any) => {
           if (course) {
             this.course = course;
-            // this.course.href = course._links.self.href; HATEOAS
+            console.log("COURSE FORM: ", this.courseForm);
+            console.log("COURSE: ", this.course);
+            console.log("SELECT LECTS: ", this.selectLecturers);
+            this.courseForm.patchValue({
+              name: this.course.name,
+              espb: this.course.espb,
+              goal: this.course.goal,
+              status: this.course.status,
+              department: this.departments.filter(d => d.id === this.course.department.id)[0],
+              studyProgram: this.studyPrograms.filter(sp => sp.id === this.course.studyProgram.id)[0]
+            })
+            this.populateCourseUnits();
+            let controlLects = <FormControl> this.courseForm.controls.lecturers;
+            let controlSelLects = <FormControl> this.courseForm.controls.selectLecturers;
+            // for (let i = 0; i < this.selectLecturers.length; i++) {
+            //   for (let j = 0; j < this.course.lecturers.length; j++) {
+            //     if (this.selectLecturers[i].id === this.course.lecturers[j].id)
+            //       controlLects.value.push(this.selectLecturers[i]);
+            //     else 
+            //       controlSelLects.value.push(this.selectLecturers[i]);
+            //   }
+            // }
+            for (let i = 0; i < this.course.lecturers.length; i++) {
+                controlLects.value.push(this.course.lecturers[i]);
+                this.lecturers.push(this.course.lecturers[i]);
+                // this.selectLecturers.splice(this.selectLecturers.indexOf(this.course.lecturers[i]), 1);
+            }
+            console.log("HERE ", this.courseForm);
           } else {
             console.log(`Course with id '${id}' not found, returning to list`);
             this.gotoList();
@@ -92,6 +120,19 @@ export class CourseEditComponent implements OnInit {
         });
       }
     });
+  }
+
+  populateCourseUnits() {
+    let control = <FormArray>this.courseForm.controls.courseUnits;
+    control.removeAt(0);
+    this.course.courseUnits.forEach(x => {
+      control.push(this.formBuilder.group({
+        number: x.number,
+        name: x.name,
+        description: x.description
+      }))
+    })
+    return control;
   }
 
   swapLecturers(from: string, to: string) {
