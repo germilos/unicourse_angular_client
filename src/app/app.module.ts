@@ -6,7 +6,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseListComponent } from './course-list/course-list.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { HomeComponent } from './home/home.component';
-import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { ReactiveFormsModule} from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, FormArray } from '@angular
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FlexLayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]

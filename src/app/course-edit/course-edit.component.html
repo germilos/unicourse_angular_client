@@ -1,24 +1,31 @@
 <form [formGroup]="courseForm" (ngSubmit)="save()">
-  <div class="form-group">
+  <div class="wrapper">
+  <div class="form-group item-1">
     <label for="name">Name</label>
     <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name..." />
   </div>
-  <div class="form-group">
+  <div class="form-group item-2">
     <label for="ESPB">ESPB</label>
     <input type="number" formControlName="espb" class="form-control" id="ESPB" placeholder="ESPB..." />
   </div>
-  <div class="form-group">
-    <label for="goal">Goal</label>
-    <input type="text" formControlName="goal" class="form-control" id="goal" placeholder="Goal..." />
+  <div class="item-3">
+  <div formArrayName="courseUnits" *ngFor="let unit of courseForm.get('courseUnits').controls; let i = index;">
+    <div [formGroupName]="i">
+      <input type="number" formControlName="number" class="form-control" placeholder="Unit number">
+      <input formControlName="name" class="form-control" placeholder="Unit name">
+      <input formControlName="description" class="form-control" placeholder="Unit description">
+      <button type="button" (click)="deleteItem(i)" class="btn btn-info">Delete unit</button>
+    </div>
   </div>
-  <div class="form-group">
+</div>
+  <div class="form-group item-4">
     <label for="status">Status</label>
     <select class="custom-select" formControlName="status" id="status">
       <option selected value="OPTIONAL">Optional</option>
       <option value="MANDATORY">Mandatory</option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group item-5">
     <label for="studyProgram">Study Program</label>
     <select class="custom-select" formControlName="studyProgram" id="studyProgram">
       <option *ngFor="let studyProgram of studyPrograms" [ngValue]="studyProgram">
@@ -26,7 +33,7 @@
       </option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group item-6">
     <label for="department">Department</label>
     <select class="custom-select" formControlName="department" id="department">
       <option *ngFor="let department of departments" [ngValue]="department">
@@ -34,7 +41,11 @@
       </option>
     </select>
   </div>
-  <button type="submit" class="btn btn-primary">Save</button>
+  <div class="form-group item-7">
+    <label for="goal">Goal</label>
+    <input type="text" formControlName="goal" class="form-control" id="goal" placeholder="Goal..." />
+  </div>
+  <div class="item-8">
   <div class="form-group">
     <label for="selectLecturers">Lecturer</label>
     <select class="selectpicker" formControlName="selectLecturers" multiple data-live-search="true"
@@ -43,8 +54,17 @@
         {{lecturer.nameSurname}}
       </option>
     </select>
-    {{this.courseForm.controls.selectLecturers.value}}
   </div>
+<div class="buttons">
+  <div class="buttons-swap">
+      <button type="button" (click)="swapLecturers('selectLecturers', 'lecturers')" class="list-transfer-btn"><span>L</span></button>
+      <button type="button" (click)="swapLecturers('lecturers', 'selectLecturers')" class="list-transfer-btn"><span>R</span></button>
+  </div>
+  <div class="buttons-swap-all">
+      <button type="button" (click)="swapLecturersAll('selectLecturers', 'lecturers')" class="list-transfer-btn">FULL L</button>
+      <button type="button" (click)="swapLecturersAll('lecturers', 'selectLecturers')" class="list-transfer-btn">FULL R</button>
+  </div>
+</div>
   <div class="form-group">
     <label for="lecturers">Selected Lecturers</label>
     <select class="selectpicker" multiple data-live-search="true" formControlName="lecturers"
@@ -53,19 +73,11 @@
         {{lecturer.nameSurname}}
       </option>
     </select>
+</div>
   </div>
-  <button type="button" (click)="swapLecturers('selectLecturers', 'lecturers')" class="list-transfer-btn"><span>L</span></button>
-  <button type="button" (click)="swapLecturers('lecturers', 'selectLecturers')" class="list-transfer-btn"><span>R</span></button>
-  <button type="button" (click)="swapLecturersAll('selectLecturers', 'lecturers')" class="list-transfer-btn">FULL L</button>
-  <button type="button" (click)="swapLecturersAll('lecturers', 'selectLecturers')" class="list-transfer-btn">FULL R</button>
-  <div formArrayName="courseUnits" *ngFor="let unit of courseForm.get('courseUnits').controls; let i = index;">
-    <div [formGroupName]="i">
-      <input type="number" formControlName="number" placeholder="Unit number">
-      <input formControlName="name" placeholder="Unit name">
-      <input formControlName="description" placeholder="Unit description">
-      <button type="button" (click)="deleteItem(i)" class="btn btn-info">Delete unit</button>
-    </div>
-    Chosen name: {{ courseForm.controls.courseUnits.controls[i].controls.name.value }}
+  <div class="item-9">
+    <button type="submit" class="btn btn-primary">Save</button>
   </div>
+</div>
 </form>
 <button (click)="addItem()" class="btn btn-primary">Add Unit</button>

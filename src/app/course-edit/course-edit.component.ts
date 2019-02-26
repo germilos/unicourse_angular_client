@@ -6,9 +6,11 @@ import { StudyProgramService } from '../shared/study-program/study-program.servi
 import { DepartmentService } from '../shared/department/department.service';
 import { LecturerService } from '../shared/lecturer/lecturer.service';
 import { FormBuilder, FormArray, FormGroup, FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
-import { forkJoin } from 'rxjs';
+/*
+** Entire code to be refactored upon achieving complete functionality
+*/
 
 @Component({
   selector: 'app-course-edit',
@@ -19,7 +21,9 @@ export class CourseEditComponent implements OnInit {
   course: any = {};
   studyPrograms: Array<any>;
   departments: Array<any>;
+  // Lecturers not selected for POST/PUT
   selectLecturers: Array<any> = [];
+  // Selected lecturers
   lecturers: Array<any> = [];
   courseForm: FormGroup;
   courseUnits: FormArray;
@@ -47,10 +51,9 @@ export class CourseEditComponent implements OnInit {
       lecturers: [[]],
       courseUnits: this.formBuilder.array([this.createItem()])
     });
+
     this.requestDataFromMultipleSources().subscribe(responseList => {
-      console.log("RESP LIST: ", responseList);
       this.selectLecturers = responseList[0];
-      console.log("LECTURERSS: ", this.lecturers);
       this.departments = responseList[1];
       this.studyPrograms = responseList[2];
       this.sub = this.route.params.subscribe(params => {
@@ -60,9 +63,6 @@ export class CourseEditComponent implements OnInit {
         this.courseService.get(id).subscribe((course: any) => {
           if (course) {
             this.course = course;
-            console.log("COURSE FORM: ", this.courseForm);
-            console.log("COURSE: ", this.course);
-            console.log("SELECT LECTS: ", this.selectLecturers);
             this.courseForm.patchValue({
               name: this.course.name,
               espb: this.course.espb,
@@ -73,30 +73,13 @@ export class CourseEditComponent implements OnInit {
             })
             this.populateCourseUnits();
             let controlLects = <FormControl> this.courseForm.controls.lecturers;
-            let controlSelLects = <FormControl> this.courseForm.controls.selectLecturers;
-            // for (let i = 0; i < this.selectLecturers.length; i++) {
-            //   for (let j = 0; j < this.course.lecturers.length; j++) {
-            //     if (this.selectLecturers[i].id === this.course.lecturers[j].id)
-            //       controlLects.value.push(this.selectLecturers[i]);
-            //     else 
-            //       controlSelLects.value.push(this.selectLecturers[i]);
-            //   }
-            // }
-            console.log("Course lecturers: ", this.course.lecturers);
-            console.log("Select lecuters: ", this.selectLecturers);
             for (let i = 0; i < this.course.lecturers.length; i++) {
                 controlLects.value.push(this.course.lecturers[i]);
                 this.lecturers.push(this.course.lecturers[i]);
-                console.log("Index: ", this.selectLecturers.indexOf(this.course.lecturers[i]))
-                // let pos = this.selectLecturers.map(function(e) { 
-                //   return e.id; 
-                // }).indexOf(this.course.lecturers[i].id);
-                // console.log("Index map: " + pos);
                 this.selectLecturers.splice(this.selectLecturers.map(function(e) { 
                   return e.id; 
                 }).indexOf(this.course.lecturers[i].id), 1);
             }
-            console.log("HERE ", this.courseForm);
           } else {
             console.log(`Course with id '${id}' not found, returning to list`);
             this.gotoList();
@@ -105,86 +88,6 @@ export class CourseEditComponent implements OnInit {
       }
     });
     }) 
-
-    console.log("LECTURERSS: OUT ", this.lecturers);
-    
-
-    // this.studyProgramService.getAll().subscribe(studyPrograms => {
-    //   if (studyPrograms) {
-    //     this.studyPrograms = studyPrograms;
-    //   } else {
-    //     console.log(
-    //       `There was an error loading study programmes, returning to course list`
-    //     );
-    //     this.gotoList();
-    //   }
-    // });
-    // this.departmentService.getAll().subscribe(departments => {
-    //   if (departments) {
-    //     this.departments = departments;
-        
-    //   } else {
-    //     console.log(
-    //       `There was an error loading departments, returning to course list`
-    //     );
-    //     this.gotoList();
-    //   }
-    // });
-    // this.lecturerService.getAll().subscribe(lecturers => {
-    //   if (lecturers) {
-    //     console.log('Lecturers from service: ', lecturers);
-    //     this.selectLecturers = lecturers;
-    //     console.log('Lecturers in service: ', this['selectLecturers']);
-    //   } else {
-    //     console.log(
-    //       `There was an error loading lecturers, returning to course list`
-    //     );
-    //     this.gotoList();
-    //   }
-    // });
-    
-    // this.sub = this.route.params.subscribe(params => {
-    //   const id = params['id'];
-    //   if (id) {
-    //     // if "id" exists, retrieve course from DB and assign to course variable
-    //     this.courseService.get(id).subscribe((course: any) => {
-    //       if (course) {
-    //         this.course = course;
-    //         console.log("COURSE FORM: ", this.courseForm);
-    //         console.log("COURSE: ", this.course);
-    //         console.log("SELECT LECTS: ", this.selectLecturers);
-    //         this.courseForm.patchValue({
-    //           name: this.course.name,
-    //           espb: this.course.espb,
-    //           goal: this.course.goal,
-    //           status: this.course.status,
-    //           department: this.departments.filter(d => d.id === this.course.department.id)[0],
-    //           studyProgram: this.studyPrograms.filter(sp => sp.id === this.course.studyProgram.id)[0]
-    //         })
-    //         this.populateCourseUnits();
-    //         let controlLects = <FormControl> this.courseForm.controls.lecturers;
-    //         let controlSelLects = <FormControl> this.courseForm.controls.selectLecturers;
-    //         // for (let i = 0; i < this.selectLecturers.length; i++) {
-    //         //   for (let j = 0; j < this.course.lecturers.length; j++) {
-    //         //     if (this.selectLecturers[i].id === this.course.lecturers[j].id)
-    //         //       controlLects.value.push(this.selectLecturers[i]);
-    //         //     else 
-    //         //       controlSelLects.value.push(this.selectLecturers[i]);
-    //         //   }
-    //         // }
-    //         for (let i = 0; i < this.course.lecturers.length; i++) {
-    //             controlLects.value.push(this.course.lecturers[i]);
-    //             this.lecturers.push(this.course.lecturers[i]);
-    //             // this.selectLecturers.splice(this.selectLecturers.indexOf(this.course.lecturers[i]), 1);
-    //         }
-    //         console.log("HERE ", this.courseForm);
-    //       } else {
-    //         console.log(`Course with id '${id}' not found, returning to list`);
-    //         this.gotoList();
-    //       }
-    //     });
-    //   }
-    // });
   }
 
   
@@ -192,8 +95,7 @@ export class CourseEditComponent implements OnInit {
     let lecturers = this.lecturerService.getAll();
     let departments = this.departmentService.getAll();
     let studyPrograms = this.studyProgramService.getAll();
-    console.log("HEY", lecturers);
-    // Observable.forkJoin (RxJS 5) changes to just forkJoin() in RxJS 6
+    
     return forkJoin([lecturers, departments, studyPrograms]);
   }
 
@@ -210,8 +112,8 @@ export class CourseEditComponent implements OnInit {
     return control;
   }
 
+  // TODO: Refactor for immutability
   swapLecturers(from: string, to: string) {
-    // TODO: Refactor for immutability
     let lecturersForSwap = this.courseForm.controls[from].value.map(result => {
       return result;
     });
