@@ -1,45 +1,76 @@
+
 .custom-select, .form-control {
-    max-width: 300px;
+    max-width: 320px;
 }
 
 label, select { 
     display: block;
 }
 
-.selectpicker {
-    min-width: 200px;
+.custom-select {
+    min-width: 235px;
 }
 
 .wrapper {
     display: grid;
-    grid-template-columns: 300px 300px 700px;
+    grid-template-columns: 330px 330px 300px;
     grid-template-rows: 70px 70px 70px 150px 150px 70px;
+}
+
+form {
+    margin-top: 40px;
+}
+
+label {
+    margin-bottom: 2px;
 }
 
 .item-3 {
     grid-column: 3;
     grid-row: 1 / 5;
+    padding-top: 25px;
+    margin-left: 50px;
+}
+
+.item-3 > div > div > input:first-child {
+    max-width: 50px;
+}
+
+.item-3 > div > div > input:nth-child(2) {
+    max-width: 150px;
+}
+
+.item-3 > div > div > input:nth-child(3) {
+    max-width: 50px;
 }
 
 .item-7 {
+    grid-column: 1 / 2;
     grid-row: 4;
 }
 
 .item-8 {
     grid-row: 5;
     grid-column: 1 / 3;
+    text-align: center;
 }
 
 .item-8 > div {
     float: left;
 }
 
-.buttons {
-    margin-top: 35px;
-}
-
 .item-9 {
     grid-row: 6;
     grid-column: 1;
+}
+
+.buttons {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 35px;
+}
+
+.goal {
+    min-width: 650px;
 }
 

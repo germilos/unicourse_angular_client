@@ -11,10 +11,10 @@
   <div class="item-3">
   <div formArrayName="courseUnits" *ngFor="let unit of courseForm.get('courseUnits').controls; let i = index;">
     <div [formGroupName]="i">
-      <input type="number" formControlName="number" class="form-control" placeholder="Unit number">
+      <input type="number" disabled formControlName="number" class="form-control" placeholder="Unit number">
       <input formControlName="name" class="form-control" placeholder="Unit name">
       <input formControlName="description" class="form-control" placeholder="Unit description">
-      <button type="button" (click)="deleteItem(i)" class="btn btn-info">Delete unit</button>
+      <button type="button" (click)="deleteItem(i)" class="btn btn-info">X</button>
     </div>
   </div>
 </div>
@@ -43,12 +43,12 @@
   </div>
   <div class="form-group item-7">
     <label for="goal">Goal</label>
-    <input type="text" formControlName="goal" class="form-control" id="goal" placeholder="Goal..." />
+    <textarea type="text" rows="4" formControlName="goal" class="form-control goal" id="goal" placeholder="Goal..."></textarea>
   </div>
   <div class="item-8">
   <div class="form-group">
     <label for="selectLecturers">Lecturer</label>
-    <select class="selectpicker" formControlName="selectLecturers" multiple data-live-search="true"
+    <select class="custom-select" formControlName="selectLecturers" multiple data-live-search="true"
       id="selectLecturers">
       <option *ngFor="let lecturer of selectLecturers" [ngValue]="lecturer">
         {{lecturer.nameSurname}}
@@ -67,7 +67,7 @@
 </div>
   <div class="form-group">
     <label for="lecturers">Selected Lecturers</label>
-    <select class="selectpicker" multiple data-live-search="true" formControlName="lecturers"
+    <select class="custom-select" multiple data-live-search="true" formControlName="lecturers"
       id="lecturers">
       <option *ngFor="let lecturer of lecturers" [ngValue]="lecturer" selected>
         {{lecturer.nameSurname}}
