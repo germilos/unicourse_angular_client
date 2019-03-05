@@ -11,9 +11,30 @@ label, select {
     min-width: 235px;
 }
 
+.lecturer-select {
+    min-height: 110px;
+}
+
+.buttons-swap-all {
+    margin-top: 2px;
+}
+
+.buttons-swap-all > button {
+    margin-left: 2px;
+    width: 35px;
+    height: 35px;
+    padding-left: 10px;
+}
+
+.buttons-swap > button {
+    margin-left: 2px;
+    width: 35px;
+    height: 35px;
+}
+
 .wrapper {
     display: grid;
-    grid-template-columns: 330px 330px 300px;
+    grid-template-columns: 330px 330px 450px;
     grid-template-rows: 70px 70px 70px 150px 150px 70px;
 }
 
@@ -25,23 +46,39 @@ label {
     margin-bottom: 2px;
 }
 
+.course-unit-item {
+    display: inline-block;
+}
+
+.course-unit-item > *{
+    float: left;
+}
+
+.course-unit-item > button{
+    /* display: block; */
+    /* float: none; */
+}
+
 .item-3 {
     grid-column: 3;
-    grid-row: 1 / 5;
-    padding-top: 25px;
+    grid-row: 1 / 6;
+    margin-top: -7px;
     margin-left: 50px;
 }
 
 .item-3 > div > div > input:first-child {
-    max-width: 50px;
+    max-width: 60px;
 }
 
 .item-3 > div > div > input:nth-child(2) {
-    max-width: 150px;
+    min-width: 250px;
+    max-width: 250px;
 }
 
-.item-3 > div > div > input:nth-child(3) {
-    max-width: 50px;
+.item-3 > div > div > input:nth-child(5) {
+    min-width: 450px;
+    min-height: 150px;
+    display:none;
 }
 
 .item-7 {
@@ -52,7 +89,6 @@ label {
 .item-8 {
     grid-row: 5;
     grid-column: 1 / 3;
-    text-align: center;
 }
 
 .item-8 > div {
@@ -67,10 +103,23 @@ label {
 .buttons {
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 35px;
+    margin-top: 45px;
 }
 
 .goal {
     min-width: 650px;
 }
 
+.delete-btn {
+    margin-left: 5px;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    padding: 0px;
+}
+
+.delete-btn:hover {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+  

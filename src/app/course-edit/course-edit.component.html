@@ -9,14 +9,17 @@
     <input type="number" formControlName="espb" class="form-control" id="ESPB" placeholder="ESPB..." />
   </div>
   <div class="item-3">
+  <h5>Course Units:</h5> 
   <div formArrayName="courseUnits" *ngFor="let unit of courseForm.get('courseUnits').controls; let i = index;">
-    <div [formGroupName]="i">
+    <div class="course-unit-item" [formGroupName]="i">
       <input type="number" disabled formControlName="number" class="form-control" placeholder="Unit number">
       <input formControlName="name" class="form-control" placeholder="Unit name">
-      <input formControlName="description" class="form-control" placeholder="Unit description">
-      <button type="button" (click)="deleteItem(i)" class="btn btn-info">X</button>
+      <button type="button"  (click)="toggle(i)" class="btn btn-square btn-warning delete-btn"><i class="far fa-edit"></i></button>
+      <button type="button" (click)="deleteItem(i)" class="btn btn-square btn-danger delete-btn"><i class="far fa-trash-alt"></i></button>
+      <input formControlName="description" *ngIf="descriptions[i]" class="form-control" placeholder="Unit description">
     </div>
   </div>
+  <button type="button" (click)="addItem()" class="btn btn-pill btn-success"><i class="fas fa-plus"></i></button>
 </div>
   <div class="form-group item-4">
     <label for="status">Status</label>
@@ -47,8 +50,8 @@
   </div>
   <div class="item-8">
   <div class="form-group">
-    <label for="selectLecturers">Lecturer</label>
-    <select class="custom-select" formControlName="selectLecturers" multiple data-live-search="true"
+    <label for="selectLecturers">Available lecturers</label>
+    <select class="custom-select lecturer-select" formControlName="selectLecturers" multiple data-live-search="true"
       id="selectLecturers">
       <option *ngFor="let lecturer of selectLecturers" [ngValue]="lecturer">
         {{lecturer.nameSurname}}
@@ -57,17 +60,17 @@
   </div>
 <div class="buttons">
   <div class="buttons-swap">
-      <button type="button" (click)="swapLecturers('selectLecturers', 'lecturers')" class="list-transfer-btn"><span>L</span></button>
-      <button type="button" (click)="swapLecturers('lecturers', 'selectLecturers')" class="list-transfer-btn"><span>R</span></button>
+      <button type="button" (click)="swapLecturers('selectLecturers', 'lecturers')" class="btn btn-square btn-primary"><i class="fas fa-angle-left"></i></button>
+      <button type="button" (click)="swapLecturers('lecturers', 'selectLecturers')" class="btn btn-square btn-primary"><i class="fas fa-angle-right"></i></button>
   </div>
   <div class="buttons-swap-all">
-      <button type="button" (click)="swapLecturersAll('selectLecturers', 'lecturers')" class="list-transfer-btn">FULL L</button>
-      <button type="button" (click)="swapLecturersAll('lecturers', 'selectLecturers')" class="list-transfer-btn">FULL R</button>
+      <button type="button" (click)="swapLecturersAll('selectLecturers', 'lecturers')" class="btn btn-square btn-primary"><i class="fas fa-angle-double-left"></i></button>
+      <button type="button" (click)="swapLecturersAll('lecturers', 'selectLecturers')" class="btn btn-square btn-primary"><i class="fas fa-angle-double-right"></i></button>
   </div>
 </div>
   <div class="form-group">
     <label for="lecturers">Selected Lecturers</label>
-    <select class="custom-select" multiple data-live-search="true" formControlName="lecturers"
+    <select class="custom-select lecturer-select" multiple data-live-search="true" formControlName="lecturers"
       id="lecturers">
       <option *ngFor="let lecturer of lecturers" [ngValue]="lecturer" selected>
         {{lecturer.nameSurname}}
@@ -80,4 +83,3 @@
   </div>
 </div>
 </form>
-<button (click)="addItem()" class="btn btn-primary">Add Unit</button>

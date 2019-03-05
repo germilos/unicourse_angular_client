@@ -28,6 +28,7 @@ export class CourseEditComponent implements OnInit {
   courseForm: FormGroup;
   courseUnits: FormArray;
   sub: Subscription;
+  descriptions: Array<boolean> = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -182,6 +183,25 @@ export class CourseEditComponent implements OnInit {
     this.courseUnits.push(this.createItem());
   }
 
+  toggle(number: number): boolean {
+    this.descriptions = [];
+    console.log(this.courseUnits)
+    this.courseUnits.controls.forEach(el => {
+      this.descriptions.push(false);
+    });
+
+    for (int i = 0; i < this.courseForm.get('courseUnits').length)
+
+    this.descriptions.forEach((el, i) => {
+      if (i == number) {
+        this.descriptions[i] = true;
+      } else {
+        this.descriptions[i] = false;
+      }
+    });
+
+    return this.descriptions[number];
+  }
   deleteItem(number): void {
     let numbers, index;
 
