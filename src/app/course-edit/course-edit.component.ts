@@ -190,7 +190,7 @@ export class CourseEditComponent implements OnInit {
       this.descriptions.push(false);
     });
 
-    for (int i = 0; i < this.courseForm.get('courseUnits').length)
+    // for (int i = 0; i < this.courseForm.get('courseUnits').length)
 
     this.descriptions.forEach((el, i) => {
       if (i == number) {
