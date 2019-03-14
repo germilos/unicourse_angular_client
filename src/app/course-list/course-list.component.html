@@ -8,7 +8,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let course of courses">
+    <tr *ngFor="let course of currentCourses">
       <td>{{ course.id }}</td>
       <td>{{ course.name }}</td>
       <td>{{ course.status }}</td>
@@ -17,5 +17,6 @@
     </tr>
   </tbody>
 </table>
+<button *ngFor="let item of helperArray; let i = index" type="button" (click)="getPage(i)" class="btn btn-warning">{{i}}</button>
 <button type="button" class="btn btn-info" [routerLink]="['course-add']">Add Course</button>
 

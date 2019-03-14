@@ -15,8 +15,16 @@ export class CourseService {
     return this.http.get('//localhost:8080/api/courses');
   }
 
-  get(id: string) {
+  get(id: string): Observable<any> {
     return this.http.get(this.COURSE_API + '/' + id);
+  }
+
+  getPaginated(page: number = 0, size: number = 10): Observable<any> {
+    return this.http.get('//localhost:8080/api/courses/get?page=' + page + '&size=' + size + '&orderBy=id&direction=ASC');
+  }
+
+  getCount(): Observable<number> {
+    return this.http.get<number>('//localhost:8080/api/courses/count');
   }
 
   save(course: any): Observable<any> {
