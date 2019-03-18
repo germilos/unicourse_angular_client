@@ -1,9 +1,8 @@
-
 .custom-select, .form-control {
     max-width: 320px;
 }
 
-label, select { 
+label, select {
     display: block;
 }
 
@@ -19,14 +18,14 @@ label, select {
     margin-top: 2px;
 }
 
-.buttons-swap-all > button {
+.buttons-swap-all>button {
     margin-left: 2px;
     width: 35px;
     height: 35px;
     padding-left: 10px;
 }
 
-.buttons-swap > button {
+.buttons-swap>button {
     margin-left: 2px;
     width: 35px;
     height: 35px;
@@ -50,13 +49,8 @@ label {
     display: inline-block;
 }
 
-.course-unit-item > *{
+.course-unit-item>* {
     float: left;
-}
-
-.course-unit-item > button{
-    /* display: block; */
-    /* float: none; */
 }
 
 .item-3 {
@@ -66,19 +60,23 @@ label {
     margin-left: 50px;
 }
 
-.item-3 > div > div > input:first-child {
-    max-width: 60px;
+.unit-number {
+    max-width: 40px;
+    /* border-radius: 100%; */
+    text-align: center;
+    
+    padding: 0px;
 }
 
-.item-3 > div > div > input:nth-child(2) {
+.item-3>div>div>input:nth-child(2) {
     min-width: 250px;
     max-width: 250px;
 }
 
-.item-3 > div > div > input:nth-child(5) {
+.item-3>div>div>input:nth-child(5) {
     min-width: 450px;
     min-height: 150px;
-    display:none;
+    /* display:none; */
 }
 
 .item-7 {
@@ -91,7 +89,7 @@ label {
     grid-column: 1 / 3;
 }
 
-.item-8 > div {
+.item-8>div {
     float: left;
 }
 
@@ -110,6 +108,11 @@ label {
     min-width: 650px;
 }
 
+.description {
+    min-width: 390px;
+    min-height: 100px;
+}
+
 .delete-btn {
     margin-left: 5px;
     border-radius: 50%;
@@ -120,6 +123,5 @@ label {
 
 .delete-btn:hover {
     -webkit-transform: rotate(180deg);
-            transform: rotate(180deg);
-  }
-  
+    transform: rotate(180deg);
+}

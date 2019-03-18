@@ -101,11 +101,13 @@ export class CourseEditComponent implements OnInit {
   }
 
   populateCourseUnits() {
-    let control = <FormArray>this.courseForm.controls.courseUnits;
+    let control = <FormArray>this.courseForm.get('courseUnits');
+    // let control = <FormArray>this.courseForm.controls.courseUnits;
     control.removeAt(0);
+    console.log(this.course.courseUnits);
     this.course.courseUnits.forEach(x => {
       control.push(this.formBuilder.group({
-        number: x.number,
+        number: new FormControl({ value: x.number, disabled: true}),
         name: x.name,
         description: x.description
       }))
@@ -152,7 +154,7 @@ export class CourseEditComponent implements OnInit {
   createItem(): FormGroup {
     console.log(this.courseUnits);
     return this.formBuilder.group({
-      number: this.courseUnits ? this.courseUnits.controls[this.courseUnits.controls.length - 1]['controls'].number.value + 1 : 1,
+      number: new FormControl({value: this.courseUnits ? this.courseUnits.controls[this.courseUnits.controls.length - 1]['controls'].number.value + 1 : 1, disabled: true}),
       name: '',
       description: ''
     });
@@ -185,12 +187,9 @@ export class CourseEditComponent implements OnInit {
 
   toggle(number: number): boolean {
     this.descriptions = [];
-    console.log(this.courseUnits)
-    this.courseUnits.controls.forEach(el => {
-      this.descriptions.push(false);
-    });
-
-    // for (int i = 0; i < this.courseForm.get('courseUnits').length)
+    this.courseForm.controls.courseUnits['controls'].forEach(el => {
+        this.descriptions.push(false);
+      });
 
     this.descriptions.forEach((el, i) => {
       if (i == number) {
@@ -199,7 +198,7 @@ export class CourseEditComponent implements OnInit {
         this.descriptions[i] = false;
       }
     });
-
+    console.log(this.descriptions[number]);
     return this.descriptions[number];
   }
   deleteItem(number): void {
