@@ -63,6 +63,7 @@ export class CourseEditComponent implements OnInit {
         // if "id" exists, retrieve course from DB and assign to course variable
         this.courseService.get(id).subscribe((course: any) => {
           if (course) {
+            console.log("COURSE: ", course);
             this.course = course;
             this.courseForm.patchValue({
               name: this.course.name,
@@ -74,6 +75,7 @@ export class CourseEditComponent implements OnInit {
             })
             this.populateCourseUnits();
             let controlLects = <FormControl> this.courseForm.controls.lecturers;
+            console.log("CTRL LECTS ", controlLects); 
             for (let i = 0; i < this.course.lecturers.length; i++) {
                 controlLects.value.push(this.course.lecturers[i]);
                 this.lecturers.push(this.course.lecturers[i]);
@@ -120,6 +122,7 @@ export class CourseEditComponent implements OnInit {
     let lecturersForSwap = this.courseForm.controls[from].value.map(result => {
       return result;
     });
+    console.log(lecturersForSwap);
 
     for (let i = 0; i < lecturersForSwap.length; i++) {
       this.courseForm.controls[to].value.push(lecturersForSwap[i]);
@@ -186,14 +189,13 @@ export class CourseEditComponent implements OnInit {
   }
 
   toggle(number: number): boolean {
-    this.descriptions = [];
     this.courseForm.controls.courseUnits['controls'].forEach(el => {
         this.descriptions.push(false);
       });
 
     this.descriptions.forEach((el, i) => {
       if (i == number) {
-        this.descriptions[i] = true;
+        this.descriptions[i] = this.descriptions[i] ? false : true;
       } else {
         this.descriptions[i] = false;
       }
@@ -222,5 +224,7 @@ export class CourseEditComponent implements OnInit {
     for (let i = 1; i <= this.courseUnits.controls.length; i++) {
       this.courseUnits.controls[i - 1]['controls'].number.setValue(i);
     }
+    
+
   }
 }
