@@ -1,22 +1,24 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Status</th>
-      <th>ESPB</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let course of currentCourses">
-      <td>{{ course.id }}</td>
-      <td>{{ course.name }}</td>
-      <td>{{ course.status }}</td>
-      <td>{{ course.espb }}</td>
-      <td><button class="btn btn-info" [routerLink]="['course-edit', course.id]"></button></td>
-    </tr>
-  </tbody>
-</table>
-<button *ngFor="let item of helperArray; let i = index" type="button" (click)="getPage(i)" class="btn btn-warning">{{i}}</button>
-<button type="button" class="btn btn-info" [routerLink]="['course-add']">Add Course</button>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>ESPB</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let course of currentCourses">
+        <td>{{ course.id }}</td>
+        <td>{{ course.name }}</td>
+        <td>{{ course.status }}</td>
+        <td>{{ course.espb }}</td>
+        <td><button class="btn btn-info" [routerLink]="['course-edit', course.id]"></button></td>
+      </tr>
+    </tbody>
+  </table>
+  <button *ngFor="let item of helperArray; let i = index" type="button" (click)="getPage(i)" class="btn btn-warning">{{i}}</button>
+  <button type="button" class="btn btn-info" [routerLink]="['course-add']">Add Course</button>
+</div>
 

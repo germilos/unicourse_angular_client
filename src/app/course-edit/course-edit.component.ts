@@ -119,10 +119,12 @@ export class CourseEditComponent implements OnInit {
 
   // TODO: Refactor for immutability
   swapLecturers(from: string, to: string) {
+    console.log(from + " ", this.courseForm.controls[from].value);
+    console.log(to + " ", this.courseForm.controls[to].value);
     let lecturersForSwap = this.courseForm.controls[from].value.map(result => {
       return result;
     });
-    console.log(lecturersForSwap);
+    console.log("Single for swap: ", lecturersForSwap);
 
     for (let i = 0; i < lecturersForSwap.length; i++) {
       this.courseForm.controls[to].value.push(lecturersForSwap[i]);
@@ -135,6 +137,8 @@ export class CourseEditComponent implements OnInit {
 
   swapLecturersAll(from: string, to: string): void {
     // Get all lecturers from source list
+    console.log(from + " ", this.courseForm.controls[from].value);
+    console.log(to + " ", this.courseForm.controls[to].value);
     let lecturersForSwap = this[from].map(result => {
       return result;
     });
@@ -146,6 +150,8 @@ export class CourseEditComponent implements OnInit {
     for (let i = 0; i < lecturersForSwap.length; i++) {
       this[to].push(lecturersForSwap[i]);
       this.courseForm.controls[to].value.push(lecturersForSwap[i]);
+      this.courseForm.controls[from].value.splice(
+        this.courseForm.controls[from].value.indexOf(lecturersForSwap[i]), 1);
       this[from].splice(this[from].indexOf(lecturersForSwap[i]), 1);
     }
   }
@@ -205,7 +211,13 @@ export class CourseEditComponent implements OnInit {
   }
   deleteItem(number): void {
     let numbers, index;
+    this.courseUnits = this.courseForm.get('courseUnits') as FormArray;
 
+    if (number === 0) {
+      // TODO: Show message
+      console.log("Cannot delete");
+      return;
+    }
     // Get all course unit numbers
     numbers = this.courseUnits.controls.map(current => {
       return current['controls'].number.value;

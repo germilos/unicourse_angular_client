@@ -4,8 +4,11 @@
 
 body {
   font-family: Roboto, sans-serif;
-  margin-left: 170pt;
-  margin-right: 170pt;
+  margin-left: 280pt;
+  margin-right: 280pt;
+  text-align: center;
+  display: inline-block;
+  background-color: blue;
 }
 
 .footer {
