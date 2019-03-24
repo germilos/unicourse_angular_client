@@ -1,10 +1,15 @@
 .container {
     padding: 0px;
-    
+    margin-left: 110px;
+    /* margin-right: -50px; */
+    min-width: 1190px;
 }
 
 .container > form {
     padding: 20px;
+    background-color: #FFFFE1; 
+    /* margin-left: -50px;
+    margin-right: -50px */
 }
 
 .custom-select, .form-control {
@@ -42,7 +47,7 @@ label, select {
 
 .wrapper {
     display: grid;
-    grid-template-columns: 330px 330px 425px;
+    grid-template-columns: 330px 330px 500px;
     grid-template-rows: 70px 70px 70px 150px 150px 70px;
 }
 
@@ -73,7 +78,7 @@ label {
     margin-left: 30px;
     display: grid;
     grid-template-rows: 40px 470px 100px;
-    grid-template-columns: 400px;
+    grid-template-columns: 460px;
 }
 
 .item-3-3 {
@@ -95,7 +100,7 @@ label {
 }
 
 .unit-number {
-    max-width: 40px;
+    max-width: 50px;
     /* border-radius: 100%; */
     text-align: center;
     
@@ -109,8 +114,8 @@ label {
 }
 
 .item-3>div>div>div>input:nth-child(2) {
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 290px;
+    max-width: 290px;
 }
 
 .item-3>div>div>div>input:nth-child(5) {
@@ -149,7 +154,7 @@ label {
 }
 
 .description {
-    min-width: 375px;
+    min-width: 422px;
     min-height: 100px;
 }
 

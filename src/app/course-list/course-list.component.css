@@ -1,0 +1,9 @@
+.container {
+    padding: 0px;
+    /* margin-left: 110px; */
+    /* margin-right: -50px; */
+    /* margin-left: 110px;
+    margin-right: 110px; */
+    min-width: 790px;
+    max-width: 790px;
+}

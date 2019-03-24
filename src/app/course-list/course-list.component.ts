@@ -13,7 +13,7 @@ import { angularMath } from 'angular-ts-math';
 export class CourseListComponent implements OnInit {
   currentCourses: Array<any>;
   helperArray: Array<any>;
-  private pageSize = 10;
+  private pageSize = 3;
 
   constructor(private courseService: CourseService) { }
 

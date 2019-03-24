@@ -4,10 +4,10 @@
 
 body {
   font-family: Roboto, sans-serif;
-  margin-left: 280pt;
-  margin-right: 280pt;
+  margin-left: 250px;
+  margin-right: 250px;
   text-align: center;
-  display: inline-block;
+  /* display: inline-block; */
   background-color: blue;
 }
 
