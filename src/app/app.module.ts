@@ -6,8 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { CourseListComponent } from './course-list/course-list.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { HomeComponent } from './home/home.component';
-import { ReactiveFormsModule} from '@angular/forms';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SearchByNamePipe } from './search-by-name.pipe';
+import { CourseDepatmentFilterPipe } from './course-depatment-filter.pipe';
 
 
 @NgModule({
@@ -15,14 +17,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     AppComponent,
     CourseListComponent,
     CourseEditComponent,
-    HomeComponent
+    HomeComponent,
+    SearchByNamePipe,
+    CourseDepatmentFilterPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

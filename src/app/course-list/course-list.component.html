@@ -1,18 +1,27 @@
 <div class="container">
+    <div>
+        <label for="name"></label>
+        <input type="text" class="form-control" id="name" placeholder="Search by name..." [(ngModel)]="searchString" />
+      </div>
+      <div *ngFor="let department of departments">
+          <input type="checkbox" [(ngModel)]="department.selected" />{{department.name}}
+        </div>
   <table class="table table-striped">
     <thead>
       <tr>
         <th>ID</th>
         <th>Name</th>
         <th>Status</th>
+        <th>Department</th>
         <th>ESPB</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let course of currentCourses">
+      <tr *ngFor="let course of currentCourses | searchByName: 'name' : searchString | courseDepatmentFilter: selectedDepartments">
         <td>{{ course.id }}</td>
         <td>{{ course.name }}</td>
         <td>{{ course.status }}</td>
+        <td>{{ course.department.name }}</td>
         <td>{{ course.espb }}</td>
         <td><button class="btn btn-info" [routerLink]="['course-edit', course.id]"></button></td>
       </tr>
