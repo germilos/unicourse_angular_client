@@ -23,7 +23,7 @@ export class CourseListComponent implements OnInit {
   // ];
   departments: Array<any>;
   courseStatuses: Array<any> = ['Mandatory', 'Optional'];
-  private pageSize = 3;
+  private pageSize = 10;
 
   constructor(private courseService: CourseService,
               private departmentService: DepartmentService) {}
@@ -32,7 +32,7 @@ export class CourseListComponent implements OnInit {
   ** Do not use 'async' keyword - find alternative solution using Observable/Promise
   */
   async ngOnInit() {
-    this.intialize();
+    // this.intialize();
     this.courseService.getPaginated().subscribe(data => {
       console.log(data);
       this.currentCourses = data.content;
@@ -47,17 +47,17 @@ export class CourseListComponent implements OnInit {
     });
   }
 
-  async intialize() {
-    let resPaginated = await this.courseService.getPaginated().toPromise();
-    console.log("RES PAG", resPaginated);
-    let count = this.courseService.getCount().toPromise();
-    console.log("COunt", count);
-    let departments = this.departmentService.getAll().toPromise();
-    this.currentCourses = resPaginated.content;
-    this.helperArray = new Array(
-      // angularMath.nextIntegerOfNumber(count / this.pageSize);
-    )
-  }
+  // async intialize() {
+  //   let resPaginated = await this.courseService.getPaginated().toPromise();
+  //   console.log("RES PAG", resPaginated);
+  //   let count = this.courseService.getCount().toPromise();
+  //   console.log("COunt", count);
+  //   let departments = this.departmentService.getAll().toPromise();
+  //   this.currentCourses = resPaginated.content;
+  //   this.helperArray = new Array(
+  //     // angularMath.nextIntegerOfNumber(count / this.pageSize);
+  //   )
+  // }
   getPage(page: number) {
     
     this.courseService.getPaginated(page, this.pageSize).subscribe(data => {
