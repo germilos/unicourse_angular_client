@@ -20,7 +20,8 @@ export class CourseService {
   }
 
   getPaginated(page: number = 0, size: number = 10): Observable<any> {
-    return this.http.get('//localhost:8080/api/courses/get?page=' + page + '&size=' + size + '&orderBy=id&direction=ASC');
+    return this.http.get('//localhost:8080/api/courses/get?page=' 
+    + page + '&size=' + size + '&orderBy=id&direction=ASC');
   }
 
   getCount(): Observable<number> {

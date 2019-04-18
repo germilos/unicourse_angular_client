@@ -10,6 +10,10 @@ import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SearchByNamePipe } from './search-by-name.pipe';
 import { CourseDepatmentFilterPipe } from './course-depatment-filter.pipe';
+import { LecturerListComponent } from './lecturer-list/lecturer-list.component';
+import { LecturerDepartmentFilterPipe } from './lecturer-department-filter.pipe';
+import { ProfessorEditComponent } from './professor-edit/professor-edit.component';
+import { AssistantEditComponent } from './assistant-edit/assistant-edit.component';
 
 
 @NgModule({
@@ -19,7 +23,11 @@ import { CourseDepatmentFilterPipe } from './course-depatment-filter.pipe';
     CourseEditComponent,
     HomeComponent,
     SearchByNamePipe,
-    CourseDepatmentFilterPipe
+    CourseDepatmentFilterPipe,
+    LecturerListComponent,
+    LecturerDepartmentFilterPipe,
+    ProfessorEditComponent,
+    AssistantEditComponent
   ],
   imports: [
     BrowserModule,

@@ -17,7 +17,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let course of currentCourses | searchByName: 'name' : searchString | courseDepatmentFilter: selectedDepartments">
+      <tr *ngFor="let course of currentCourses$ | 
+                  searchByName: 'name' : searchString | 
+                  courseDepatmentFilter: selectedDepartments">
         <td>{{ course.id }}</td>
         <td>{{ course.name }}</td>
         <td>{{ course.status }}</td>
@@ -27,7 +29,7 @@
       </tr>
     </tbody>
   </table>
-  <button *ngFor="let item of helperArray; let i = index" type="button" (click)="getPage(i)" class="btn btn-warning">{{i}}</button>
-  <button type="button" class="btn btn-info" [routerLink]="['course-add']">Add Course</button>
-</div>
+  <button *ngFor="let item of pageSizeArray; let i = index" type="button" (click)="getPage(i)" class="btn btn-warning">{{i}}</button>
+  <button type="button" class="btn btn-i
+</div>nfo" [routerLink]="['course-add']">Add Course</button>
 
