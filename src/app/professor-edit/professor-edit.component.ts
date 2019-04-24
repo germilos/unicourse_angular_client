@@ -31,6 +31,7 @@ export class ProfessorEditComponent implements OnInit {
         if (id) {
           this.lecturerService.get(id).subscribe((professor: Professor) => {
             this.model = professor;
+            console.log("Model: ", this.model);
             this.model.department = this.findProfessorDepartment(
                                       this.model.department);
           });
@@ -40,6 +41,7 @@ export class ProfessorEditComponent implements OnInit {
   }
 
   save(form): void {
+    console.log("Form value: ", form.value);
     this.lecturerService.save(form.value).subscribe(
       result => {
         this.gotoList();

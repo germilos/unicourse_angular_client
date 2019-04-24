@@ -1,6 +1,10 @@
 <div class="container">
-  <form #professorForm="ngForm" (ngSubmit)="save(assistantForm)">
+  <form #assistantForm="ngForm" (ngSubmit)="save(assistantForm)">
     <div class="wrapper">
+        <div class="form-group item-0">
+            <input type="hidden" [(ngModel)]="model.id" class="form-control"
+                 name="id" id="id"/>
+          </div>
       <div class="form-group item-1">
         <label for="full-name">Full name</label>
         <input type="text" [(ngModel)]="model.nameSurname" class="form-control"

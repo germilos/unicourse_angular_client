@@ -42,6 +42,7 @@ export class CourseEditComponent implements OnInit {
 
   ngOnInit() {
     this.courseForm = this.formBuilder.group({
+      id: '',
       name: '',
       espb: '',
       goal: '',
@@ -66,6 +67,7 @@ export class CourseEditComponent implements OnInit {
             console.log("COURSE: ", course);
             this.course = course;
             this.courseForm.patchValue({
+              id: this.course.id,
               name: this.course.name,
               espb: this.course.espb,
               goal: this.course.goal,
@@ -75,7 +77,6 @@ export class CourseEditComponent implements OnInit {
             })
             this.populateCourseUnits();
             let controlLects = <FormControl> this.courseForm.controls.lecturers;
-            console.log("CTRL LECTS ", controlLects); 
             for (let i = 0; i < this.course.lecturers.length; i++) {
                 controlLects.value.push(this.course.lecturers[i]);
                 this.lecturers.push(this.course.lecturers[i]);
@@ -109,7 +110,7 @@ export class CourseEditComponent implements OnInit {
     console.log(this.course.courseUnits);
     this.course.courseUnits.forEach(x => {
       control.push(this.formBuilder.group({
-        number: new FormControl({ value: x.number, disabled: true}),
+        number: new FormControl({ value: x.number, disabled: false}),
         name: x.name,
         description: x.description
       }))
@@ -163,14 +164,16 @@ export class CourseEditComponent implements OnInit {
   createItem(): FormGroup {
     console.log(this.courseUnits);
     return this.formBuilder.group({
-      number: new FormControl({value: this.courseUnits ? this.courseUnits.controls[this.courseUnits.controls.length - 1]['controls'].number.value + 1 : 1, disabled: true}),
+      number: new FormControl({value: this.courseUnits ? 
+        this.courseUnits.controls[this.courseUnits.controls.length - 1]['controls'].number.value + 1 : 1, disabled: false}),
       name: '',
       description: ''
     });
   }
 
   save(): void {
-    console.log(this.courseForm.value);
+    console.log("Course form: ", this.courseForm);
+    console.log("Course value: ", this.courseForm.value);
     this.courseService.save(this.courseForm.value).subscribe(
       result => {
         console.log(result);

@@ -64,7 +64,7 @@ export class LecturerService {
       };
       console.log("Namen and dept: ", this.LECTURER_API + '/get' + {params});
       return this.http.get<Lecturer[]>(this.LECTURER_API + '/get?', {params});
-    }
+  }
   getCount(): Observable<number> {
     return this.http.get<number>('//localhost:8080/api/lecturers/count');
   }
@@ -75,9 +75,11 @@ export class LecturerService {
 
   save(lecturer: any): Observable<any> {
     let result: Observable<Object>;
-    if (lecturer['href']) {
-      result = this.http.put(lecturer.href, lecturer);
+    if (lecturer['id']) {
+      console.log("Putting");
+      result = this.http.put(this.LECTURER_API, lecturer);
     } else {
+      console.log("Posting");
       result = this.http.post(this.LECTURER_API, lecturer);
     }
     return result;

@@ -1,8 +1,8 @@
 import { Component, OnInit, APP_INITIALIZER } from '@angular/core';
-import { CourseService } from '../shared/course/course.service';
 import { DepartmentService } from '../shared/department/department.service';
 import { angularMath } from 'angular-ts-math';
 import { Department } from '../department';
+import { CourseService } from '../shared/course/course.service';
 
 @Component({
   selector: 'app-course-list',
@@ -27,7 +27,7 @@ export class CourseListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.courseService.getPaginated(0, this.pageSize).subscribe(data => {
+    this.courseService.getAllPaginated(0, this.pageSize).subscribe(data => {
       this.currentCourses$ = data.content;
       console.log("Current: ", this.currentCourses$);
       this.setNumberOfPages(data['totalElements']);
@@ -46,9 +46,41 @@ export class CourseListComponent implements OnInit {
   }
 
   getPage(page: number) {
-    this.courseService.getPaginated(page, this.pageSize).subscribe(data => {
+    this.courseService.getAllPaginated(page, this.pageSize).subscribe(data => {
       this.currentCourses$ = data.content;
     });
+    if ((!this.searchString || this.searchString === '') 
+          && this.selectedDepartments.length == 0) {
+      console.log("Nothing");
+      this.courseService.getAllPaginated(page, this.pageSize).subscribe(
+        (data: any[]) => {
+        this.currentCourses$ = data['content'];
+        this.setNumberOfPages(data['totalElements']);
+      });
+    } else if (this.selectedDepartments.length > 0 &&
+      (!this.searchString || this.searchString === '')) {
+      console.log("Dept");
+      this.courseService.getAllByDepartmentsPaginated(this.selectedDepartments,
+        page, this.pageSize).subscribe((data: any[]) => {
+          this.currentCourses$ = data['content'];
+          this.setNumberOfPages(data['totalElements']);
+        });
+    } else if ((this.searchString && this.searchString.length > 0) && 
+      this.selectedDepartments.length === 0) {
+        console.log("Name");
+         this.courseService.getAllByNamePaginated(this.searchString, page,
+          this.pageSize).subscribe((data: any[]) => {
+            this.currentCourses$ = data['content'];
+            this.setNumberOfPages(data['totalElements']);
+          });
+    } else {
+      console.log("Name and dept.");
+      this.courseService.getAllByNameAndDepartmentsPaginated(this.searchString,
+         this.selectedDepartments, page, this.pageSize).subscribe((data: any[]) => {
+          this.currentCourses$ = data['content'];
+          this.setNumberOfPages(data['totalElements']);
+        });
+    }
   }
 
   get selectedDepartments() {

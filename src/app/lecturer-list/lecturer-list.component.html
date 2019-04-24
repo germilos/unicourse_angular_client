@@ -5,7 +5,8 @@
       placeholder="Search by name..." [(ngModel)]="searchString" />
     </div>
     <div *ngFor="let department of departments">
-        <input type="checkbox" [(ngModel)]="department.selected" (change)="getPage(0)" />
+        <input type="checkbox" [(ngModel)]="department.selected" 
+        (change)="getPage(0)" />
         {{department.name}}
       </div>
 <table class="table table-striped">

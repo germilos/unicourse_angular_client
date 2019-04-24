@@ -19,9 +19,49 @@ export class CourseService {
     return this.http.get(this.COURSE_API + '/' + id);
   }
 
-  getPaginated(page: number = 0, size: number = 10): Observable<any> {
+  getAllPaginated(page: number = 0, size: number = 10): Observable<any> {
     return this.http.get('//localhost:8080/api/courses/get?page=' 
     + page + '&size=' + size + '&orderBy=id&direction=ASC');
+  }
+
+  getAllByNamePaginated(name: string, pageNumber: number = 0,
+     pageSize: number = 5): Observable<any[]> {
+      return this.http.get<any[]>(this.COURSE_API + "/get?name=" + name +
+      "&page=" + pageNumber + "&size=" + pageSize);
+  }
+
+  getAllByDepartmentsPaginated(departmentIds: number[], pageNumber: number = 0,
+    pageSize: number = 1): Observable<any[]> {
+    let departmentStrings: string[] = departmentIds.map((departmentId: number) => {
+      return departmentId.toString();
+    });
+    let params = {
+      departmentId: departmentStrings,
+      page : pageNumber.toString(),
+      pageSize: pageSize.toString(),
+      orderBy: "id",
+      direction: "ASC"
+    };
+    console.log("DEPARTMENTS: ", this.COURSE_API + '/get' + {params});
+
+    return this.http.get<any[]>(this.COURSE_API + '/get?', {params})        
+  }
+
+  getAllByNameAndDepartmentsPaginated(name: string, departmentIds: number[],
+    pageNumber: number = 0, pageSize: number = 1) {
+      let departmentStrings: string[] = departmentIds.map((departmentId: number) => {
+        return departmentId.toString();
+      })
+      let params = {
+        name: name,
+        departmentId: departmentStrings,
+        page : pageNumber.toString(),
+        pageSize: pageSize.toString(),
+        orderBy: "id",
+        direction: "ASC"
+      };
+      console.log("Namen and dept: ", this.COURSE_API + '/get' + {params});
+      return this.http.get<any[]>(this.COURSE_API + '/get?', {params});
   }
 
   getCount(): Observable<number> {
@@ -34,8 +74,10 @@ export class CourseService {
     // Remove 'selectLecturers' attribute - only used for list swap
     delete course.selectLecturers;
     if (course['id']) {
+      console.log("putting");
       result = this.http.put(this.COURSE_API, course);
     } else {
+      console.log("posting");
       result = this.http.post(this.COURSE_API, course);
     }
     return result;
