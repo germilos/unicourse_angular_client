@@ -1,0 +1,25 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Field</th>
+      <th>Type</th>
+      <th>Department</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let lecturer of currentLecturers">
+      <td>{{ lecturer.id }}</td>
+      <td>{{ lecturer.nameSurname }}</td>
+      <td>{{ lecturer.studyField }}</td>
+      <td>{{ lecturer.type === 'P' ? 'Professor' : 'Assistant' }}</td>
+      <td>{{ lecturer.department.name }}</td>
+      <td>
+        <button class="btn btn-info" 
+          [routerLink]="[lecturer.type === 'P' ? 'professor-edit' :
+          'assistant-edit', lecturer.id]"></button>
+      </td>
+    </tr>
+  </tbody>
+</table>

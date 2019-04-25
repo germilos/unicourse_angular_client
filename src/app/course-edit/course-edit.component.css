@@ -1,15 +1,15 @@
+/********************************************
+            General styling
+********************************************/
 .container {
     padding: 0px;
     margin-left: 110px;
-    /* margin-right: -50px; */
     min-width: 1190px;
 }
 
 .container > form {
     padding: 20px;
     background-color: #FFFFE1; 
-    /* margin-left: -50px;
-    margin-right: -50px */
 }
 
 .custom-select, .form-control {
@@ -63,14 +63,6 @@ label {
     margin-bottom: 2px;
 }
 
-.course-unit-item {
-    display: inline-block;
-}
-
-.course-unit-item>* {
-    float: left;
-}
-
 .item-3 {
     grid-column: 3;
     grid-row: 1 / 6;
@@ -90,39 +82,12 @@ label {
 
 }
 
-.item-3 > button {
+.btn-add-course-unit {
     grid-row: 3;
 }
-
-.mini-title {
-    margin-top: 8px;
-    grid-row: 1;
-}
-
-.unit-number {
-    max-width: 50px;
-    /* border-radius: 100%; */
-    text-align: center;
-    
-    padding: 0px;
-}
-
-.btn-add-course-unit {
-    margin-top: 10px;
-    max-width: 40px;
-    max-height: 40px;
-}
-
-.item-3>div>div>div>input:nth-child(2) {
-    min-width: 290px;
-    max-width: 290px;
-}
-
-.item-3>div>div>div>input:nth-child(5) {
-    min-width: 450px;
-    min-height: 150px;
-    /* display:none; */
-}
+/* .item-3 > button {
+    grid-row: 3;
+} */
 
 .item-7 {
     grid-column: 1 / 2;
@@ -151,22 +116,4 @@ label {
 
 .goal {
     min-width: 650px;
-}
-
-.description {
-    min-width: 422px;
-    min-height: 100px;
-}
-
-.delete-btn {
-    margin-left: 5px;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    padding: 0px;
-}
-
-.delete-btn:hover {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
 }

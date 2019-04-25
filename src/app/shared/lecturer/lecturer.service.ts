@@ -18,6 +18,10 @@ export class LecturerService {
     return this.http.get(this.LECTURER_API);
   }
 
+  get(id: string) {
+    return this.http.get(this.LECTURER_API + '/' + id);
+  }
+
   getAllPaginated(pageNumber: number = 0, pageSize: number = 1): Observable<Lecturer[]> {
     console.log("PAGINATED: ", this.LECTURER_API + '/get?page=' + pageNumber +
     '&size=' + pageSize + '&orderBy=id&direction=ASC');
@@ -67,10 +71,6 @@ export class LecturerService {
   }
   getCount(): Observable<number> {
     return this.http.get<number>('//localhost:8080/api/lecturers/count');
-  }
-
-  get(id: string) {
-    return this.http.get(this.LECTURER_API + '/' + id);
   }
 
   save(lecturer: any): Observable<any> {

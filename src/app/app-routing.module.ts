@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component'
-import { CourseListComponent } from './course-list/course-list.component'
 import { CourseEditComponent } from './course-edit/course-edit.component'
-import { LecturerListComponent } from './lecturer-list/lecturer-list.component';
 import { ProfessorEditComponent } from './professor-edit/professor-edit.component';
 import { AssistantEditComponent } from './assistant-edit/assistant-edit.component';
+import { ListPageComponent } from './list-page/list-page.component';
 
 const appRoutes: Routes = [
   {
@@ -22,7 +21,7 @@ const appRoutes: Routes = [
     children: [
       {
         path: '',
-        component: CourseListComponent
+        component: ListPageComponent
       },
       {
         path: 'course-add',
@@ -39,7 +38,7 @@ const appRoutes: Routes = [
     children: [
       {
         path: '',
-        component: LecturerListComponent
+        component: ListPageComponent
       },
       {
         path: 'professor-add',
