@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
-import { FormArray } from '@angular/forms';
-import { EventEmitter } from 'events';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-course-units',
@@ -9,19 +8,36 @@ import { EventEmitter } from 'events';
 })
 export class CourseUnitsComponent implements OnInit {
 
-  @Input() courseUnitArray: FormArray;
-  @Output() deleteUnitEmitter = new EventEmitter();
-  @Output() toggleDescriptionEmitter = new EventEmitter();
-  
-  constructor() { }
+  @Output() private formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  private arrayGroup: FormGroup;
+  private courseUnits;
+  private descriptions: Array<boolean> = [];
+
+  constructor(private fb: FormBuilder) {
+    this.arrayGroup = this.fb.group({
+      courseUnits: this.fb.array([this.createItem()])
+    })
+  }
 
   ngOnInit() {
-    console.log("Cu ARRAY", this.courseUnitArray);
+    this.formReady.emit(this.arrayGroup);
+  }
+
+  createItem(): FormGroup {
+    console.log(this.courseUnits);
+    return this.fb.group({
+      number: new FormControl({
+        value: this.courseUnits ?
+          this.courseUnits.controls[this.courseUnits.controls.length - 1]['controls'].number.value + 1 : 1, disabled: false
+      }),
+      name: '',
+      description: ''
+    });
   }
 
   deleteUnit(number: number): void {
     let numbers, index;
-    // this.courseUnitArray = this.courseForm.get('courseUnits') as FormArray;
+    this.courseUnits = this.arrayGroup.get('courseUnits') as FormArray;
 
     if (number === 0) {
       // TODO: Show message
@@ -29,27 +45,46 @@ export class CourseUnitsComponent implements OnInit {
       return;
     }
     // Get all course unit numbers
-    numbers = this.courseUnitArray.controls.map(current => {
+    numbers = this.courseUnits.controls.map(current => {
       return current['controls'].number.value;
     });
 
     // Find delete's target index and remove
     index = numbers.indexOf(number + 1);
     if (index !== -1) {
-      this.courseUnitArray.removeAt(index);
+      this.courseUnits.removeAt(index);
     }
 
     // Get new unit numbers and reset 
-    numbers = this.courseUnitArray.controls.map(current => {
+    numbers = this.courseUnits.controls.map(current => {
       return current['controls'].number.value;
     });
-    for (let i = 1; i <= this.courseUnitArray.controls.length; i++) {
-      this.courseUnitArray.controls[i - 1]['controls'].number.setValue(i);
+    for (let i = 1; i <= this.courseUnits.controls.length; i++) {
+      this.courseUnits.controls[i - 1]['controls'].number.setValue(i);
     }
+    this.formReady.emit(this.arrayGroup);
   }
 
-  toggleDescription(number: number): void {
+  toggleDescription(number: number): boolean {
+    this.arrayGroup.controls.courseUnits['controls'].forEach(el => {
+      this.descriptions.push(false);
+    });
 
+    this.descriptions.forEach((el, i) => {
+      if (i == number) {
+        this.descriptions[i] = this.descriptions[i] ? false : true;
+      } else {
+        this.descriptions[i] = false;
+      }
+    });
+    console.log(this.descriptions[number]);
+    return this.descriptions[number];
   }
 
+  addItem(): void {
+    this.courseUnits = this.arrayGroup.get('courseUnits') as FormArray;
+    this.courseUnits.push(this.createItem());
+    console.log("arary group: ", this.arrayGroup.controls['courseUnits']);
+    this.formReady.emit(this.arrayGroup);
+  }
 }

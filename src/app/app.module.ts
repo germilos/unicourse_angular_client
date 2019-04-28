@@ -15,6 +15,8 @@ import { ListPageComponent } from './list-page/list-page.component';
 import { LecturerTableComponent } from './list-page/lecturer-table/lecturer-table.component';
 import { CourseTableComponent } from './list-page/course-table/course-table.component';
 import { CourseUnitsComponent } from './course-edit/course-units/course-units.component';
+import { LecturerSelectComponent } from './course-edit/lecturer-select/lecturer-select.component';
+import { SelectLecturersDirective } from './select-lecturers.directive';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { CourseUnitsComponent } from './course-edit/course-units/course-units.co
     ListPageComponent,
     LecturerTableComponent,
     CourseTableComponent,
-    CourseUnitsComponent
+    CourseUnitsComponent,
+    LecturerSelectComponent,
+    SelectLecturersDirective
   ],
   imports: [
     BrowserModule,

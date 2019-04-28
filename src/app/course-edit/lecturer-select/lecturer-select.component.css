@@ -1,0 +1,53 @@
+.custom-select {
+    min-width: 235px;
+}
+
+.lecturer-select {
+    min-height: 110px;
+}
+
+.buttons-swap-all {
+    margin-top: 2px;
+}
+
+.buttons-swap-all>button {
+    margin-left: 2px;
+    width: 35px;
+    height: 35px;
+    padding-left: 10px;
+}
+
+.buttons-swap>button {
+    margin-left: 2px;
+    width: 35px;
+    height: 35px;
+}
+
+
+.custom-select {
+    min-width: 235px;
+}
+
+label, select {
+    display: block;
+}
+
+.custom-select, .form-control {
+    max-width: 320px;
+}
+
+div {
+    float: left;
+    /* text-align: left; */
+}
+
+.buttons {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 75px;
+}
+
+/* .buttons > div {
+    display: block;
+    float:
+} */
