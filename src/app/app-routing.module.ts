@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component'
-import { CourseEditComponent } from './course-edit/course-edit.component'
-import { ProfessorEditComponent } from './professor-edit/professor-edit.component';
-import { AssistantEditComponent } from './assistant-edit/assistant-edit.component';
+import { CourseEditComponent } from './course-edit/course-edit.component';
 import { ListPageComponent } from './list-page/list-page.component';
+import { LecturerEditComponent } from './lecturer-edit/lecturer-edit.component';
 
 const appRoutes: Routes = [
   {
@@ -42,19 +41,19 @@ const appRoutes: Routes = [
       },
       {
         path: 'professor-add',
-        component: ProfessorEditComponent
+        component: LecturerEditComponent
       },
       {
         path: 'professor-edit/:id',
-        component: ProfessorEditComponent
+        component: LecturerEditComponent
       },
       {
         path: 'assistant-add',
-        component: AssistantEditComponent
+        component: LecturerEditComponent
       },
       {
         path: 'assistant-edit/:id',
-        component: AssistantEditComponent
+        component: LecturerEditComponent
       }
     ]
   }

@@ -53,43 +53,42 @@ export class CourseEditComponent implements OnInit {
       this.selectLecturers = responseList[0];
       this.departments = responseList[1];
       this.studyPrograms = responseList[2];
-      this.route.params.subscribe(params => {
-        const id = params['id'];
-        if (id) {
-          // if "id" exists, retrieve course from DB and assign to course variable
-          this.courseService.get(id).subscribe((course: any) => {
-            if (course) {
-              console.log("COURSE: ", course);
-              this.course = course;
-              this.courseForm.patchValue({
-                id: this.course.id,
-                name: this.course.name,
-                espb: this.course.espb,
-                goal: this.course.goal,
-                status: this.course.status,
-                department: this.departments.filter(d => d.id === this.course.department.id)[0],
-                studyProgram: this.studyPrograms.filter(sp => sp.id === this.course.studyProgram.id)[0]
-              })
-              this.populateCourseUnits();
-            } else {
-              console.log(`Course with id '${id}' not found, returning to list`);
-              this.gotoList();
-            }
+
+      this.checkForPassedCourse();
+    });
+  }
+
+  checkForPassedCourse(): void {
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      /*
+      ** If 'id' parameter exists, retrieve course from database 
+      ** and assign to course variable
+      */
+      if (id) {
+        this.courseService.get(id).subscribe((course: any) => {
+          this.course = course;
+          this.courseForm.patchValue({
+            id: this.course.id,
+            name: this.course.name,
+            espb: this.course.espb,
+            goal: this.course.goal,
+            status: this.course.status,
+            department: this.departments.filter(d => d.id === this.course.department.id)[0],
+            studyProgram: this.studyPrograms.filter(sp => sp.id === this.course.studyProgram.id)[0]
           });
-        }
-      });
-    })
+          this.populateCourseUnits();
+        });
+      }
+    });
   }
 
   addFormArray(name: string, formGroup: FormGroup) {
     if (this.courseForm.controls['courseUnits']) {
-      console.log("Form group in course edit: ", formGroup.controls)
       this.courseForm.controls.courseUnits.setValue(formGroup.controls.courseUnits.value);
-      console.log("Course form: ", this.courseForm.value);
     } else {
       this.courseForm.addControl(name, formGroup.controls.courseUnits);
     }
-    console.log("In course edit: ", this.courseForm.controls.courseUnits);
   }
 
   addFormGroup(name: string, formGroup: FormGroup) {
@@ -108,18 +107,14 @@ export class CourseEditComponent implements OnInit {
     let control = <FormArray>this.courseForm.get('courseUnits');
     control.removeAt(0);
 
-    this.course.courseUnits.forEach(x => {
+    this.course.courseUnits.forEach(courseUnit => {
       control.push(this.formBuilder.group({
-        number: new FormControl({ value: x.number, disabled: false }),
-        name: x.name,
-        description: x.description
+        number: new FormControl({ value: courseUnit.number, disabled: false }),
+        name: courseUnit.name,
+        description: courseUnit.description
       }))
     })
     return control;
-  }
-
-  gotoList(): void {
-    this.router.navigate(['/courses']);
   }
 
   save(): void {
@@ -130,5 +125,9 @@ export class CourseEditComponent implements OnInit {
       },
       error => console.error(error)
     );
+  }
+
+  gotoList(): void {
+    this.router.navigate(['/courses']);
   }
 }

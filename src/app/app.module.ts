@@ -7,8 +7,6 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { ProfessorEditComponent } from './professor-edit/professor-edit.component';
-import { AssistantEditComponent } from './assistant-edit/assistant-edit.component';
 import { HeaderComponent } from './header/header.component';
 import { SearchComponent } from './shared/search/search.component';
 import { ListPageComponent } from './list-page/list-page.component';
@@ -16,7 +14,7 @@ import { LecturerTableComponent } from './list-page/lecturer-table/lecturer-tabl
 import { CourseTableComponent } from './list-page/course-table/course-table.component';
 import { CourseUnitsComponent } from './course-edit/course-units/course-units.component';
 import { LecturerSelectComponent } from './course-edit/lecturer-select/lecturer-select.component';
-import { SelectLecturersDirective } from './select-lecturers.directive';
+import { LecturerEditComponent } from './lecturer-edit/lecturer-edit.component';
 
 
 @NgModule({
@@ -24,8 +22,6 @@ import { SelectLecturersDirective } from './select-lecturers.directive';
     AppComponent,
     CourseEditComponent,
     HomeComponent,
-    ProfessorEditComponent,
-    AssistantEditComponent,
     HeaderComponent,
     SearchComponent,
     ListPageComponent,
@@ -33,7 +29,7 @@ import { SelectLecturersDirective } from './select-lecturers.directive';
     CourseTableComponent,
     CourseUnitsComponent,
     LecturerSelectComponent,
-    SelectLecturersDirective
+    LecturerEditComponent
   ],
   imports: [
     BrowserModule,
