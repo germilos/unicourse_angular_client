@@ -1,32 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { CourseService } from '../shared/course/course.service';
 import { StudyProgramService } from '../shared/study-program/study-program.service';
 import { DepartmentService } from '../shared/department/department.service';
 import { LecturerService } from '../shared/lecturer/lecturer.service';
 import { FormBuilder, FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Observable, forkJoin } from 'rxjs';
+import { StudyProgram } from '../study-program';
+import { Department } from '../department';
+import { Lecturer } from '../lecturer';
+import { Course } from '../course';
 
 /*
 ** Entire code to be refactored upon achieving complete functionality
 */
-
 @Component({
   selector: 'app-course-edit',
   templateUrl: './course-edit.component.html',
   styleUrls: ['./course-edit.component.css']
 })
 export class CourseEditComponent implements OnInit {
-  course: any = {};
-  studyPrograms: Array<any>;
-  departments: Array<any>;
+  private course: Course; 
+  private studyPrograms: StudyProgram[];
+  private departments: Department[];
   // Lecturers not selected for POST/PUT
-  selectLecturers: Array<any> = [];
+  private selectLecturers: Lecturer[] = [];
   // Selected lecturers
-  lecturers: Array<any> = [];
-  courseForm: FormGroup;
-  courseUnits: FormArray;
+  private lecturers: Lecturer[] = [];
+  private courseForm: FormGroup;
+  private courseUnits: FormArray;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,31 +61,35 @@ export class CourseEditComponent implements OnInit {
   }
 
   checkForPassedCourse(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params: Params) => {
       const id = params['id'];
       /*
       ** If 'id' parameter exists, retrieve course from database 
       ** and assign to course variable
       */
       if (id) {
-        this.courseService.get(id).subscribe((course: any) => {
-          this.course = course;
-          this.courseForm.patchValue({
-            id: this.course.id,
-            name: this.course.name,
-            espb: this.course.espb,
-            goal: this.course.goal,
-            status: this.course.status,
-            department: this.departments.filter(d => d.id === this.course.department.id)[0],
-            studyProgram: this.studyPrograms.filter(sp => sp.id === this.course.studyProgram.id)[0]
-          });
-          this.populateCourseUnits();
+        this.courseService.get(id).subscribe((course: Course) => {
+          this.setRetrivedCourse(course);
         });
       }
     });
   }
 
-  addFormArray(name: string, formGroup: FormGroup) {
+  setRetrivedCourse(course: Course): void {
+    this.course = course;
+    this.courseForm.patchValue({
+      id: this.course.id,
+      name: this.course.name,
+      espb: this.course.espb,
+      goal: this.course.goal,
+      status: this.course.status,
+      department: this.departments.filter(d => d.id === this.course.department.id)[0],
+      studyProgram: this.studyPrograms.filter(sp => sp.id === this.course.studyProgram.id)[0]
+    });
+    this.populateCourseUnits();
+  }
+
+  addFormArray(name: string, formGroup: FormGroup): void {
     if (this.courseForm.controls['courseUnits']) {
       this.courseForm.controls.courseUnits.setValue(formGroup.controls.courseUnits.value);
     } else {
@@ -91,7 +97,7 @@ export class CourseEditComponent implements OnInit {
     }
   }
 
-  addFormGroup(name: string, formGroup: FormGroup) {
+  addFormGroup(name: string, formGroup: FormGroup): void {
     this.courseForm.addControl(name, formGroup.controls.lecturers);
   }
 
@@ -103,7 +109,7 @@ export class CourseEditComponent implements OnInit {
     return forkJoin([lecturers, departments, studyPrograms]);
   }
 
-  populateCourseUnits() {
+  populateCourseUnits(): FormArray  {
     let control = <FormArray>this.courseForm.get('courseUnits');
     control.removeAt(0);
 

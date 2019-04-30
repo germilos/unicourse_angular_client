@@ -24,7 +24,6 @@ export class CourseUnitsComponent implements OnInit {
   }
 
   createItem(): FormGroup {
-    console.log(this.courseUnits);
     return this.fb.group({
       number: new FormControl({
         value: this.courseUnits ?

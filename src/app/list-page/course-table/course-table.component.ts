@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Course } from 'src/app/course';
 
 @Component({
   selector: 'app-course-table',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CourseTableComponent implements OnInit {
 
-  @Input() currentCourses: any[];
+  @Input() currentCourses: Course[];
 
   constructor() { 
     this.currentCourses = [];

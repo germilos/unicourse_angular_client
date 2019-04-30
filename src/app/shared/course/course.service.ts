@@ -42,7 +42,6 @@ export class CourseService {
       orderBy: "id",
       direction: "ASC"
     };
-    console.log("DEPARTMENTS: ", this.COURSE_API + '/get' + {params});
 
     return this.http.get<any[]>(this.COURSE_API + '/get?', {params})        
   }

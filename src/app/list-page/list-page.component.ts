@@ -17,17 +17,15 @@ export class ListPageComponent implements OnInit {
   private currentEntities$: any[];
   private routePath: string;
   private activeEntityService: any;
-  private pageSizeArray: Array<any>;
+  private pageSizeArray: any[];
   private searchString: string;
   private pageSize: number;
-  private departments: Array<Department>;
+  private departments: Department[];
 
   constructor(private router: Router,
               private lecturerService: LecturerService,
               private departmentService: DepartmentService,
               private courseService: CourseService) {
-    this.pageSize = 5;
-    this.departments = [];
   }
 
   ngOnInit() {
@@ -35,6 +33,9 @@ export class ListPageComponent implements OnInit {
   }
 
   initialize(): void {
+
+    this.pageSize = 5;
+    this.departments = [];
 
     this.routePath = this.router.url.slice(1);
     if (this.routePath === 'lecturers') {
@@ -81,7 +82,6 @@ export class ListPageComponent implements OnInit {
           && this.selectedDepartments.length == 0) {
       this.activeEntityService.getAllPaginated(page, this.pageSize).subscribe(
         (data: Lecturer[]) => {
-        // this.currentLecturers$ = data['content'];
         this.currentEntities$ = data['content'];
         this.setNumberOfPages(data['totalElements']);
       });
