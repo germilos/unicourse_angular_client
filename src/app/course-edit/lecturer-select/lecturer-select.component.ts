@@ -1,8 +1,9 @@
 import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, SelectMultipleControlValueAccessor } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Lecturer } from 'src/app/lecturer';
 import { LecturerService } from 'src/app/shared/lecturer/lecturer.service';
 import { Course } from 'src/app/course';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-lecturer-select',
