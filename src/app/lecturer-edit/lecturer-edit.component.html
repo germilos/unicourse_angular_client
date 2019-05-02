@@ -1,4 +1,4 @@
-<div class="container">
+ <div class="container">
   <form #lecturerForm="ngForm" (ngSubmit)="save(lecturerForm)">
     <div class="wrapper">
       <div *ngIf="model" class="form-group item-0">
@@ -7,11 +7,14 @@
       <div class="form-group item-1">
         <label for="full-name">Full name</label>
         <input type="text" [(ngModel)]="model.nameSurname" class="form-control" name="nameSurname" id="full-name"
-          placeholder="Enter name..." />
+          placeholder="Enter name..." required #nameSurname="ngModel"/>
+          <span class="help-block" *ngIf="!nameSurname.valid && nameSurname.touched">
+            Please enter valid name and surname!
+          </span>
       </div>
       <div class="form-group item-2">
         <label for="study-field">Study field</label>
-        <select class="custom-select" name="studyField" [(ngModel)]="model.studyField" id="study-field">
+        <select class="custom-select" name="studyField" [(ngModel)]="model.studyField" id="study-field"> 
           <option selected value="AI">Artificial Intelligence</option>
           <option value="Management">Management</option>
         </select>
@@ -26,9 +29,12 @@
       </div>
       <div *ngIf="lecturerType === 'professor'">
         <div class="form-group item-4">
-          <label for="researchNumber">No. research papers</label>
-          <input type="text" name="researchNumber" class="form-control" [(ngModel)]="model.researchNumber" id="research"
-            placeholder="Number of research papers..." />
+          <label for="researchNumber">No. research pappers</label>
+          <input type="number" name="researchNumber" class="form-control" [(ngModel)]="model.researchNumber" id="research"
+            placeholder="Number of research papers..." required #researchNumber="ngModel"/>
+            <span class="help-block" *ngIf="!researchNumber.valid && researchNumber.touched">
+              Please enter valid number of research pappers!
+            </span>
         </div>
         <div class="form-group item-5">
           <label for="position">Position</label>
@@ -40,14 +46,17 @@
       </div>
       <div *ngIf="lecturerType === 'assistant'" class="form-group item-4">
         <label for="diploma">Diploma</label>
-        <input type="text" name="diploma" class="form-control" [(ngModel)]="model.diploma" id="diploma"
-          placeholder="Number diploma..." />
+        <select class="custom-select" name="diploma" [(ngModel)]="model.diploma" id="diploma">
+            <option selected value="Master">Master</option>
+            <option value="Bachelor">Bachelor</option>
+          </select>
       </div>
       <div class="form-group item-6">
         <input type="hidden" [ngModel]="model.type" value="this.lecturerType === 'professor' ? P : A" name="type" />
       </div>
       <div class="item-7">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary"
+        [disabled]="!lecturerForm.valid">Save</button>
       </div>
     </div>
   </form>

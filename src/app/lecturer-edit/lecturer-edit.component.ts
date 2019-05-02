@@ -6,6 +6,7 @@ import { LecturerService } from '../shared/lecturer/lecturer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Assistant } from '../assistant';
 import { Professor } from '../professor';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-lecturer-edit',
@@ -46,8 +47,8 @@ export class LecturerEditComponent implements OnInit {
     });
   }
 
-  save(form): void {
-    console.log(form.value);
+  save(form: NgForm): void {
+    console.log("Fprm: ", form.value);
     this.lecturerService.save(form.value).subscribe(
       result => {
         this.gotoList();

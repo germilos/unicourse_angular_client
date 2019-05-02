@@ -55,7 +55,7 @@ export class CourseUnitsComponent implements OnInit {
     }
 
     // Get new unit numbers and reset 
-    numbers = this.courseUnits.controls.map(current => {
+    numbers = this.courseUnits.controls.map((current: FormControl) => {
       return current['controls'].number.value;
     });
     for (let i = 1; i <= this.courseUnits.controls.length; i++) {
@@ -83,7 +83,6 @@ export class CourseUnitsComponent implements OnInit {
   addItem(): void {
     this.courseUnits = this.arrayGroup.get('courseUnits') as FormArray;
     this.courseUnits.push(this.createItem());
-    console.log("arary group: ", this.arrayGroup.controls['courseUnits']);
     this.formReady.emit(this.arrayGroup);
   }
 }
