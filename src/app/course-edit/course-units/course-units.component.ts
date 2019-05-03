@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-course-units',
@@ -82,7 +83,11 @@ export class CourseUnitsComponent implements OnInit {
 
   addItem(): void {
     this.courseUnits = this.arrayGroup.get('courseUnits') as FormArray;
-    this.courseUnits.push(this.createItem());
+    if (this.courseUnits.controls[this.courseUnits.controls.length - 1].value.name !== '') {
+      this.courseUnits.push(this.createItem());
+    } else {
+      alert("Please enter course unit name!");
+    }
     this.formReady.emit(this.arrayGroup);
   }
 }

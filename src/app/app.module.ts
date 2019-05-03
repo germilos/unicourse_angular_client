@@ -15,7 +15,7 @@ import { CourseTableComponent } from './list-page/course-table/course-table.comp
 import { CourseUnitsComponent } from './course-edit/course-units/course-units.component';
 import { LecturerSelectComponent } from './course-edit/lecturer-select/lecturer-select.component';
 import { LecturerEditComponent } from './lecturer-edit/lecturer-edit.component';
-
+import { Select2Module } from 'ng2-select2';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { LecturerEditComponent } from './lecturer-edit/lecturer-edit.component';
     HttpClientModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    Select2Module
   ],
   providers: [],
   bootstrap: [AppComponent]

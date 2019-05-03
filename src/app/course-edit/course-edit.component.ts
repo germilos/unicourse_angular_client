@@ -4,7 +4,7 @@ import { CourseService } from '../shared/course/course.service';
 import { StudyProgramService } from '../shared/study-program/study-program.service';
 import { DepartmentService } from '../shared/department/department.service';
 import { LecturerService } from '../shared/lecturer/lecturer.service';
-import { FormBuilder, FormArray, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, forkJoin } from 'rxjs';
 import { StudyProgram } from '../study-program';
 import { Department } from '../department';
@@ -42,13 +42,13 @@ export class CourseEditComponent implements OnInit {
 
   ngOnInit() {
     this.courseForm = this.formBuilder.group({
-      id: '',
-      name: '',
-      espb: '',
-      goal: '',
-      status: '',
-      department: '',
-      studyProgram: ''
+      'id': '',
+      'name': ['', [Validators.required, Validators.maxLength(50)]],
+      'espb': ['', Validators.required],
+      'goal': ['', [Validators.required, Validators.maxLength(200)]],
+      'status': '',
+      'department': '',
+      'studyProgram': ''
     });
 
     this.requestDataFromMultipleSources().subscribe(responseList => {
@@ -124,6 +124,7 @@ export class CourseEditComponent implements OnInit {
   }
 
   save(): void {
+    console.log(this.courseForm);
     this.courseService.save(this.courseForm.value).subscribe(
       result => {
         console.log(result);
