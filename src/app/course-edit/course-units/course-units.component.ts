@@ -12,7 +12,7 @@ export class CourseUnitsComponent implements OnInit {
   @Output() private formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   private arrayGroup: FormGroup;
   private courseUnits;
-  private descriptions: Array<boolean> = [];
+  private descriptions: boolean[] = [];
 
   constructor(private fb: FormBuilder) {
     this.arrayGroup = this.fb.group({

@@ -20,7 +20,7 @@ import { Course } from '../course';
   styleUrls: ['./course-edit.component.css']
 })
 export class CourseEditComponent implements OnInit {
-  private course: Course; 
+  private course: Course;
   private studyPrograms: StudyProgram[];
   private departments: Department[];
   // Lecturers not selected for POST/PUT
@@ -68,9 +68,11 @@ export class CourseEditComponent implements OnInit {
       ** and assign to course variable
       */
       if (id) {
-        this.courseService.get(id).subscribe((course: Course) => {
-          this.setRetrivedCourse(course);
-        });
+        this.courseService.get(id)
+          .subscribe(
+            (course: Course) => this.setRetrivedCourse(course),
+            (error) => console.log(error)
+          );
       }
     });
   }
@@ -109,7 +111,7 @@ export class CourseEditComponent implements OnInit {
     return forkJoin([lecturers, departments, studyPrograms]);
   }
 
-  populateCourseUnits(): FormArray  {
+  populateCourseUnits(): FormArray {
     let control = <FormArray>this.courseForm.get('courseUnits');
     control.removeAt(0);
 

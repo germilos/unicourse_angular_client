@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import 'rxjs/Rx'
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,10 @@ export class CourseService {
   }
 
   get(id: string): Observable<any> {
-    return this.http.get(this.COURSE_API + '/' + id);
+    return this.http.get(this.COURSE_API + '/' + id)
+      .catch((error: Response) => {
+        return Observable.throw(error);
+      });
   }
 
   getAllPaginated(page: number = 0, size: number = 10): Observable<any> {
@@ -73,10 +77,8 @@ export class CourseService {
     // Remove 'selectLecturers' attribute - only used for list swap
     delete course.selectLecturers;
     if (course['id']) {
-      console.log("putting");
       result = this.http.put(this.COURSE_API, course);
     } else {
-      console.log("posting");
       result = this.http.post(this.COURSE_API, course);
     }
     return result;
