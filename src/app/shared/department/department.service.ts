@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,11 +13,17 @@ export class DepartmentService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<any> {
-    return this.http.get(this.DEPARTMENT_API);
+    
+    
+    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa('test:test123')});
+    return this.http.get(this.DEPARTMENT_API, {headers});
   }
 
   get(id: string) {
-    return this.http.get(this.DEPARTMENT_API + '/' + id);
+    
+    
+    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa('test:test123')});
+    return this.http.get(this.DEPARTMENT_API + '/' + id, {headers});
   }
 
   save(department: any): Observable<any> {

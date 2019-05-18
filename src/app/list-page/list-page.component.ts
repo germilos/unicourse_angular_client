@@ -82,6 +82,7 @@ export class ListPageComponent implements OnInit {
           && this.selectedDepartments.length == 0) {
       this.activeEntityService.getAllPaginated(page, this.pageSize).subscribe(
         (data: Lecturer[]) => {
+          console.log("Data: ", data);
         this.currentEntities$ = data['content'];
         this.setNumberOfPages(data['totalElements']);
       });

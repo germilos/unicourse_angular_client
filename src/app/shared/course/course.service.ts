@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx'
 
@@ -24,8 +24,9 @@ export class CourseService {
   }
 
   getAllPaginated(page: number = 0, size: number = 10): Observable<any> {
+    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa('test:test123')});
     return this.http.get('//localhost:8080/api/courses/get?page=' 
-    + page + '&size=' + size + '&orderBy=id&direction=ASC');
+    + page + '&size=' + size + '&orderBy=id&direction=ASC', { headers });
   }
 
   getAllByNamePaginated(name: string, pageNumber: number = 0,

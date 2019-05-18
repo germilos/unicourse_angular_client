@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Lecturer } from 'src/app/lecturer';
 import { Department } from 'src/app/department';
@@ -12,7 +12,7 @@ export class LecturerService {
   public API = '//localhost:8080/api';
   public LECTURER_API = this.API + '/lecturers';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }bg
 
   getAll(): Observable<any> {
     return this.http.get(this.LECTURER_API);
@@ -23,10 +23,10 @@ export class LecturerService {
   }
 
   getAllPaginated(pageNumber: number = 0, pageSize: number = 1): Observable<Lecturer[]> {
-    console.log("PAGINATED: ", this.LECTURER_API + '/get?page=' + pageNumber +
-    '&size=' + pageSize + '&orderBy=id&direction=ASC');
+    
+    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa('test:test123')});
     return this.http.get<Lecturer[]>(this.LECTURER_API + '/get?page=' + pageNumber +
-                          '&size=' + pageSize + '&orderBy=id&direction=ASC');
+                          '&size=' + pageSize + '&orderBy=id&direction=ASC', { headers});
   }
 
   getAllByNamePaginated(name: string, pageNumber: number = 0, pageSize: number = 1):
