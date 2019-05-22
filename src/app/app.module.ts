@@ -16,6 +16,8 @@ import { CourseUnitsComponent } from './course-edit/course-units/course-units.co
 import { LecturerSelectComponent } from './course-edit/lecturer-select/lecturer-select.component';
 import { LecturerEditComponent } from './lecturer-edit/lecturer-edit.component';
 import { Select2Module } from 'ng2-select2';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { Select2Module } from 'ng2-select2';
     CourseTableComponent,
     CourseUnitsComponent,
     LecturerSelectComponent,
-    LecturerEditComponent
+    LecturerEditComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

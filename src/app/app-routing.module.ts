@@ -4,6 +4,8 @@ import { HomeComponent } from './home/home.component'
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { ListPageComponent } from './list-page/list-page.component';
 import { LecturerEditComponent } from './lecturer-edit/lecturer-edit.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 const appRoutes: Routes = [
   {
@@ -56,6 +58,14 @@ const appRoutes: Routes = [
         component: LecturerEditComponent
       }
     ]
+  },
+  {
+    path: 'new-user',
+    component: RegisterComponent
+  },
+  {
+    path: 'auth/login',
+    component: LoginComponent
   }
 ];
 

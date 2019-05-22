@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TokenStorageService } from './shared/security/token-storage.service';
 
 
 @Component({
@@ -7,4 +8,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  private roles: string[];
+  private authority: string;
+  private username: string;
+
+  constructor(private tokenStrorage: TokenStorageService) {}
+
+  ngOnInit() {
+    if (this.tokenStrorage.getToken()) {
+      this.roles = this.tokenStrorage.getAuthorities();
+      this.username = this.tokenStrorage.getUsername();
+    }
+    this.roles.every(role => {
+      if (role === 'ROLE_ADMIN') {
+        this.authority = 'admin';
+        return false;
+      }
+      this.authority = 'user';
+      return true;
+    });
+  }
 }

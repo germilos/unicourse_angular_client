@@ -17,6 +17,12 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="lecturers">Lecturers</a>
       </li>
+      <li *ngIf="authority === 'admin'" class="nav-item">
+        <a class="nav-link" routerLink="new-user">Add new user</a>
+      </li>
+      <li *ngIf="!authority" class="nav-item">
+        <a class="nav-link" routerLink="login">Login</a>
+      </li>
     </ul>
   </div>
 </nav>
