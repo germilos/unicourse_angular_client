@@ -48,7 +48,6 @@ export class LecturerEditComponent implements OnInit {
   }
 
   save(form: NgForm): void {
-    console.log("Fprm: ", form.value);
     this.lecturerService.save(form.value).subscribe(
       result => {
         this.gotoList();

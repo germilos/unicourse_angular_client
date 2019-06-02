@@ -12,20 +12,20 @@ export class AppComponent {
   private authority: string;
   private username: string;
 
-  constructor(private tokenStrorage: TokenStorageService) {}
+  constructor(private tokenStorage: TokenStorageService) { }
 
   ngOnInit() {
-    if (this.tokenStrorage.getToken()) {
-      this.roles = this.tokenStrorage.getAuthorities();
-      this.username = this.tokenStrorage.getUsername();
+    if (this.tokenStorage.getToken()) {
+      this.roles = this.tokenStorage.getAuthorities();
+      this.username = this.tokenStorage.getUsername();
+      this.roles.every(role => {
+        if (role === 'ROLE_ADMIN') {
+          this.authority = 'admin';
+          return false;
+        }
+        this.authority = 'user';
+        return true;
+      });
     }
-    this.roles.every(role => {
-      if (role === 'ROLE_ADMIN') {
-        this.authority = 'admin';
-        return false;
-      }
-      this.authority = 'user';
-      return true;
-    });
   }
 }

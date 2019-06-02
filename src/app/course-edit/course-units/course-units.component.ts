@@ -17,7 +17,7 @@ export class CourseUnitsComponent implements OnInit {
   constructor(private fb: FormBuilder) {
     this.arrayGroup = this.fb.group({
       courseUnits: this.fb.array([this.createItem()])
-    })
+    });
   }
 
   ngOnInit() {
@@ -39,9 +39,9 @@ export class CourseUnitsComponent implements OnInit {
     let numbers, index;
     this.courseUnits = this.arrayGroup.get('courseUnits') as FormArray;
 
-    if (number === 0) {
+    if (number === 0 && this.courseUnits.length === 1) {
       // TODO: Show message
-      console.log("Cannot delete");
+      alert("You must assign at least one course unit!");
       return;
     }
     // Get all course unit numbers
@@ -71,7 +71,7 @@ export class CourseUnitsComponent implements OnInit {
     });
 
     this.descriptions.forEach((el, i) => {
-      if (i == number) {
+      if (i === number) {
         this.descriptions[i] = this.descriptions[i] ? false : true;
       } else {
         this.descriptions[i] = false;

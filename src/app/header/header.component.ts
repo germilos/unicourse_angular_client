@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { AuthService } from '../shared/security/auth.service';
+import { TokenStorageService } from '../shared/security/token-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   title = 'UniCourse';
-  
-  constructor() { }
+  @Input() authority: string;
+  @Input() username: string;
+
+  constructor(private tokenService: TokenStorageService) { }
 
   ngOnInit() {
   }
 
+  logout() {
+    this.tokenService.signOut();
+    window.location.reload();
+  }
 }

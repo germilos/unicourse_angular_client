@@ -48,18 +48,18 @@ export class ListPageComponent implements OnInit {
     // Get all departments for filtering
     this.departmentService.getAll().subscribe((data: Department[]) => {
       this.departments = data;
-    })
+    });
   }
 
   // Return all active filter departments
   get selectedDepartments(): number[] {
-    let selectedDepartments: number[] = [];
+    const selectedDepartments: number[] = [];
     return this.departments.reduce((departments, type) => {
       if (type.selected) {
         selectedDepartments.push(type.id);
       }
       return selectedDepartments;
-    }, [])
+    }, []);
   }
 
   onSearchChange(inputString: string) {
@@ -70,19 +70,17 @@ export class ListPageComponent implements OnInit {
   // Set number of pages to display
   setNumberOfPages(totalElements: number): void {
     this.pageSizeArray = new Array(angularMath.nextIntegerOfNumber(
-      totalElements / this.pageSize))
+      totalElements / this.pageSize));
   }
-
   /*
   ** Get <this.pageSize> lecturers with <page>*10 offset and populate
   ** <currentLecturers>
   */
   getPage(page: number) {
-    if ((!this.searchString || this.searchString === '') 
-          && this.selectedDepartments.length == 0) {
+    if ((!this.searchString || this.searchString === '')
+          && this.selectedDepartments.length === 0) {
       this.activeEntityService.getAllPaginated(page, this.pageSize).subscribe(
         (data: Lecturer[]) => {
-          console.log("Data: ", data);
         this.currentEntities$ = data['content'];
         this.setNumberOfPages(data['totalElements']);
       });
@@ -93,7 +91,7 @@ export class ListPageComponent implements OnInit {
           this.currentEntities$ = data['content'];
           this.setNumberOfPages(data['totalElements']);
         });
-    } else if ((this.searchString && this.searchString.length > 0) && 
+    } else if ((this.searchString && this.searchString.length > 0) &&
       this.selectedDepartments.length === 0) {
          this.activeEntityService.getAllByNamePaginated(this.searchString, page,
           this.pageSize).subscribe((data: Lecturer[]) => {

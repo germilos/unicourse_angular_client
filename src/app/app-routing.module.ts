@@ -23,7 +23,7 @@ const appRoutes: Routes = [
       {
         path: '',
         component: ListPageComponent
-      }, 
+      },
       {
         path: 'course-add',
         component: CourseEditComponent

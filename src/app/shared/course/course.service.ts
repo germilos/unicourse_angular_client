@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import 'rxjs/Rx'
+import 'rxjs/Rx';
+import { Course } from 'src/app/course';
 
 @Injectable({
   providedIn: 'root'
@@ -23,48 +24,57 @@ export class CourseService {
       });
   }
 
-  getAllPaginated(page: number = 0, size: number = 10): Observable<any> {
-    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa('test:test123')});
-    return this.http.get('//localhost:8080/api/courses/get?page=' 
-    + page + '&size=' + size + '&orderBy=id&direction=ASC', { headers });
+  getAllPaginated(pageNumber: number = 0, pageSize: number = 10): Observable<any> {
+    const params = {
+      pageNumber : pageNumber.toString(),
+      pageSize: pageSize.toString(),
+      orderBy: 'id',
+      direction: 'ASC'
+    };
+    return this.http.get('//localhost:8080/api/courses/get?', {params} );
   }
 
   getAllByNamePaginated(name: string, pageNumber: number = 0,
      pageSize: number = 5): Observable<any[]> {
-      return this.http.get<any[]>(this.COURSE_API + "/get?name=" + name +
-      "&page=" + pageNumber + "&size=" + pageSize);
+    const params = {
+      name,
+      pageNumber : pageNumber.toString(),
+      pageSize: pageSize.toString(),
+      orderBy: 'id',
+      direction: 'ASC'
+    };
+      return this.http.get<any[]>(this.COURSE_API + '/get?', {params});
   }
 
   getAllByDepartmentsPaginated(departmentIds: number[], pageNumber: number = 0,
     pageSize: number = 1): Observable<any[]> {
-    let departmentStrings: string[] = departmentIds.map((departmentId: number) => {
+    const departmentStrings: string[] = departmentIds.map((departmentId: number) => {
       return departmentId.toString();
     });
-    let params = {
+    const params = {
       departmentId: departmentStrings,
-      page : pageNumber.toString(),
+      pageNumber : pageNumber.toString(),
       pageSize: pageSize.toString(),
-      orderBy: "id",
-      direction: "ASC"
+      orderBy: 'id',
+      direction: 'ASC'
     };
 
-    return this.http.get<any[]>(this.COURSE_API + '/get?', {params})        
+    return this.http.get<any[]>(this.COURSE_API + '/get?', {params});
   }
 
   getAllByNameAndDepartmentsPaginated(name: string, departmentIds: number[],
     pageNumber: number = 0, pageSize: number = 1) {
-      let departmentStrings: string[] = departmentIds.map((departmentId: number) => {
+      const departmentStrings: string[] = departmentIds.map((departmentId: number) => {
         return departmentId.toString();
-      })
-      let params = {
-        name: name,
+      });
+      const params = {
+        name,
         departmentId: departmentStrings,
-        page : pageNumber.toString(),
+        pageNumber : pageNumber.toString(),
         pageSize: pageSize.toString(),
-        orderBy: "id",
-        direction: "ASC"
+        orderBy: 'id',
+        direction: 'ASC'
       };
-      console.log("Namen and dept: ", this.COURSE_API + '/get' + {params});
       return this.http.get<any[]>(this.COURSE_API + '/get?', {params});
   }
 
@@ -77,10 +87,12 @@ export class CourseService {
     console.log(course);
     // Remove 'selectLecturers' attribute - only used for list swap
     delete course.selectLecturers;
+    const courseToSave: Course = course;
+    console.log(courseToSave);
     if (course['id']) {
-      result = this.http.put(this.COURSE_API, course);
+      result = this.http.put(this.COURSE_API, courseToSave);
     } else {
-      result = this.http.post(this.COURSE_API, course);
+      result = this.http.post(this.COURSE_API, courseToSave);
     }
     return result;
   }

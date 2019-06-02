@@ -4,8 +4,8 @@ import { Department } from './department';
 export class Professor extends Lecturer {
 
     constructor(_nameSurname: string, _studyField: string, private _position: string,
-                private _researchNumber: number, _type: string, _department: Department,
-                 _id?: number) {
+        private _researchNumber: number, _type: string, _department: Department,
+        _id?: number) {
         super(_nameSurname, _studyField, _type, _department, _id);
     }
 

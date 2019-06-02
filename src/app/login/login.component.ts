@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoginDto } from '../shared/entity/login-dto';
 import { AuthService } from '../shared/security/auth.service';
 import { TokenStorageService } from '../shared/security/token-storage.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -26,14 +27,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onSubmit() {
-    console.log(this.form);
-
-    this.loginInfo = new AuthLoginInfo(
-      this.form.username,
-      this.form.password);
-
-    this.authService.attemptAuth(this.loginInfo).subscribe(
+  onSubmit(form: NgForm) {
+    this.authService.attemptAuth(form.value).subscribe(
       data => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUsername(data.username);

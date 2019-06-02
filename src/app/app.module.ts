@@ -18,6 +18,7 @@ import { LecturerEditComponent } from './lecturer-edit/lecturer-edit.component';
 import { Select2Module } from 'ng2-select2';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { httpInterceptorProviders } from './shared/security/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { RegisterComponent } from './register/register.component';
     FormsModule,
     Select2Module
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

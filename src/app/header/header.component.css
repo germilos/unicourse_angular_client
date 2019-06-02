@@ -2,6 +2,6 @@ nav {
     background-color: rgb(228, 120, 51);
 }
 
-#navbarNav > ul > li > a{
+#navbarNavDropdown > ul > li > a{
     color: white;
 }
