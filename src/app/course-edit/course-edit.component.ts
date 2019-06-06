@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
-import { CourseService } from '../shared/course/course.service';
-import { StudyProgramService } from '../shared/study-program/study-program.service';
-import { DepartmentService } from '../shared/department/department.service';
-import { LecturerService } from '../shared/lecturer/lecturer.service';
-import { FormBuilder, FormArray, FormGroup, FormControl, Validators } from '@angular/forms';
-import { Observable, forkJoin } from 'rxjs';
-import { StudyProgram } from '../study-program';
-import { Department } from '../department';
-import { Lecturer } from '../lecturer';
-import { Course } from '../course';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router, Params} from '@angular/router';
+import {CourseService} from '../shared/course/course.service';
+import {StudyProgramService} from '../shared/study-program/study-program.service';
+import {DepartmentService} from '../shared/department/department.service';
+import {LecturerService} from '../shared/lecturer/lecturer.service';
+import {FormBuilder, FormArray, FormGroup, FormControl, Validators} from '@angular/forms';
+import {Observable, forkJoin} from 'rxjs';
+import {StudyProgram} from '../study-program';
+import {Department} from '../department';
+import {Lecturer} from '../lecturer';
+import {Course} from '../course';
+import {CourseUnitsComponent} from './course-units/course-units.component';
 
 /*
 ** Entire code to be refactored upon achieving complete functionality
@@ -25,10 +26,9 @@ export class CourseEditComponent implements OnInit {
   private departments: Department[];
   // Lecturers not selected for POST/PUT
   private selectLecturers: Lecturer[] = [];
-  // Selected lecturers
-  private lecturers: Lecturer[] = [];
   private courseForm: FormGroup;
-  private courseUnits: FormArray;
+  @ViewChild(CourseUnitsComponent)
+  private courseUnits: CourseUnitsComponent;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +38,8 @@ export class CourseEditComponent implements OnInit {
     private studyProgramService: StudyProgramService,
     private lecturerService: LecturerService,
     private departmentService: DepartmentService
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.courseForm = this.formBuilder.group({
@@ -60,11 +61,15 @@ export class CourseEditComponent implements OnInit {
     });
   }
 
+  addItem(): void {
+    this.courseUnits.addItem();
+  }
+
   checkForPassedCourse(): void {
     this.route.params.subscribe((params: Params) => {
       const id = params['id'];
       /*
-      ** If 'id' parameter exists, retrieve course from database 
+      ** If 'id' parameter exists, retrieve course from database
       ** and assign to course variable
       */
       if (id) {
@@ -104,24 +109,26 @@ export class CourseEditComponent implements OnInit {
   }
 
   private requestDataFromMultipleSources(): Observable<any[]> {
-    let lecturers = this.lecturerService.getAll();
-    let departments = this.departmentService.getAll();
-    let studyPrograms = this.studyProgramService.getAll();
+    const lecturers = this.lecturerService.getAll();
+    const departments = this.departmentService.getAll();
+    const studyPrograms = this.studyProgramService.getAll();
 
     return forkJoin([lecturers, departments, studyPrograms]);
   }
 
   populateCourseUnits(): FormArray {
-    let control = <FormArray>this.courseForm.get('courseUnits');
-    control.removeAt(0);
+    const control = <FormArray>this.courseForm.get('courseUnits');
+    if (this.course.courseUnits.length > 0) {
+      control.removeAt(0);
 
-    this.course.courseUnits.forEach(courseUnit => {
-      control.push(this.formBuilder.group({
-        number: new FormControl({ value: courseUnit.number, disabled: false }),
-        name: courseUnit.name,
-        description: courseUnit.description
-      }))
-    })
+      this.course.courseUnits.forEach(courseUnit => {
+        control.push(this.formBuilder.group({
+          number: new FormControl({value: courseUnit.number, disabled: false}),
+          name: courseUnit.name,
+          description: courseUnit.description
+        }));
+      });
+    }
     return control;
   }
 

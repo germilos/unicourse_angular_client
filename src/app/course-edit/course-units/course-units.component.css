@@ -1,64 +1,57 @@
 
 .item-3-3 {
-    grid-row: 2;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    border-left: 1px solid black;
-    padding: 5px;
+  grid-row: 2;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  border-left: 1px solid black;
+  padding: 5px;
 
 }
 
 .description {
-    min-width: 422px;
-    min-height: 100px;
+  min-width: 422px;
+  min-height: 100px;
 }
+
 .mini-title {
-    margin-top: 8px;
-    grid-row: 1;
+  margin-top: 8px;
+  grid-row: 1;
 }
+
 .unit-number {
-    max-width: 50px;
-    text-align: center;
-    
-    padding: 0px;
+  max-width: 50px;
+  text-align: center;
+
+  padding: 0px;
 }
 
-div>div>input:nth-child(2) {
-    min-width: 290px;
-    max-width: 290px;
+div > div > input:nth-child(2) {
+  min-width: 290px;
+  max-width: 290px;
 }
 
-div>div>input:nth-child(5) {
-    min-width: 450px;
-    min-height: 150px;
-}
-
-button {
-    grid-row: 3;
+div > div > input:nth-child(5) {
+  min-width: 450px;
+  min-height: 150px;
 }
 
 .course-unit-item {
-    display: inline-block;
+  display: inline-block;
 }
-.course-unit-item>* {
-    float: left;
+
+.course-unit-item > * {
+  float: left;
 }
 
 .delete-btn {
-    margin-left: 5px;
-    border-radius: 50%;
-    width: 35px;
-    height: 35px;
-    padding: 0px;
+  margin-left: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  padding: 0px;
 }
 
 .delete-btn:hover {
-    -webkit-transform: rotate(180deg);
-    transform: rotate(180deg);
-}
-
-.btn-add-course-unit {
-    margin-top: 10px;
-    max-width: 40px;
-    max-height: 40px;
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
 }

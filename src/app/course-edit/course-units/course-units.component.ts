@@ -41,7 +41,7 @@ export class CourseUnitsComponent implements OnInit {
 
     if (number === 0 && this.courseUnits.length === 1) {
       // TODO: Show message
-      alert("You must assign at least one course unit!");
+      alert('You must assign at least one course unit!');
       return;
     }
     // Get all course unit numbers
@@ -55,7 +55,7 @@ export class CourseUnitsComponent implements OnInit {
       this.courseUnits.removeAt(index);
     }
 
-    // Get new unit numbers and reset 
+    // Get new unit numbers and reset
     numbers = this.courseUnits.controls.map((current: FormControl) => {
       return current['controls'].number.value;
     });
@@ -86,7 +86,7 @@ export class CourseUnitsComponent implements OnInit {
     if (this.courseUnits.controls[this.courseUnits.controls.length - 1].value.name !== '') {
       this.courseUnits.push(this.createItem());
     } else {
-      alert("Please enter course unit name!");
+      alert('Please enter course unit name!');
     }
     this.formReady.emit(this.arrayGroup);
   }

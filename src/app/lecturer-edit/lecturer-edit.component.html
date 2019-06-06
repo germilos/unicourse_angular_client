@@ -29,8 +29,8 @@
       </div>
       <div *ngIf="lecturerType === 'professor'">
         <div class="form-group item-4">
-          <label for="researchNumber">No. research pappers</label>
-          <input type="number" name="researchNumber" class="form-control" [(ngModel)]="model.researchNumber" id="research"
+          <label for="researchNumber">No. research papers</label>
+          <input type="number" name="researchNumber" class="form-control" [(ngModel)]="model.researchNumber" id="researchNumber"
             placeholder="Number of research papers..." required #researchNumber="ngModel"/>
             <span class="help-block" *ngIf="!researchNumber.valid && researchNumber.touched">
               Please enter valid number of research pappers!

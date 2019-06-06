@@ -20,12 +20,14 @@
           <app-course-units (formReady)="addFormArray('courseUnits', $event)">
           </app-course-units>
         </div>
+        <button type="button" (click)="addItem()" class="btn btn-pill btn-success btn-add-course-unit"><i
+          class="fas fa-plus"></i></button>
       </div>
       <div class="form-group item-4">
         <label for="status">Status</label>
         <select class="custom-select" formControlName="status" id="status">
-          <option selected value="OPTIONAcL">Optional</option>
-          <option value="MANDATORY">Mandatory</option>
+          <option value="Mandatory" selected>Mandatory</option>
+          <option value="Optional">Optional</option>
         </select>
       </div>
       <div class="form-group item-5">

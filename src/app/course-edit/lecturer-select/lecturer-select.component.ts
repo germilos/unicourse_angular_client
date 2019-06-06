@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, Input, ViewChild } from '@angular/core';
+import {Component, OnInit, EventEmitter, Output, Input, ViewChild, OnChanges} from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Lecturer } from 'src/app/lecturer';
 import { LecturerService } from 'src/app/shared/lecturer/lecturer.service';
@@ -10,14 +10,14 @@ import { Subject } from 'rxjs';
   templateUrl: './lecturer-select.component.html',
   styleUrls: ['./lecturer-select.component.css']
 })
-export class LecturerSelectComponent implements OnInit {
+export class LecturerSelectComponent implements OnInit, OnChanges {
 
   @Output() private formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Input() private course: Course;
-  private formGroup: FormGroup;
+  private readonly formGroup: FormGroup;
   private selectLecturers: Lecturer[];
   private lecturers: Lecturer[];
-  private flag: boolean = false;
+  private flag = false;
 
   constructor(private fb: FormBuilder,
     private lecturerService: LecturerService) {
