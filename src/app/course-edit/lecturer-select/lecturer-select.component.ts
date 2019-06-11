@@ -55,7 +55,7 @@ export class LecturerSelectComponent implements OnInit, OnChanges {
   swapLecturers(from: string, to: string) {
 
     // Get the highlighted (selected) lecturers
-    let lecturersForSwap = this.formGroup.controls[from].value.map(result => {
+    const lecturersForSwap = this.formGroup.controls[from].value.map(result => {
       return result;
     });
 
@@ -78,7 +78,7 @@ export class LecturerSelectComponent implements OnInit, OnChanges {
   swapLecturersAll(from: string, to: string): void {
 
     // Get all lecturers from origin select list
-    let lecturersForSwap = this[from].map(result => {
+    const lecturersForSwap = this[from].map(result => {
       return result;
     });
 

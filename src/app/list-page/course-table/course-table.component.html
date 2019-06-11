@@ -1,24 +1,25 @@
 <table class="table table-striped">
   <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Status</th>
-      <th>Department</th>
-      <th>ESPB</th>
-    </tr>
+  <tr>
+    <th class="row-1 row-ID">ID</th>
+    <th class="row-2 row-name">Name</th>
+    <th class="row-3 row-status">Status</th>
+    <th class="row-4 row-espb">ESPB</th>
+    <th class="row-5 row-department">Department</th>
+    <th class="row-6 row-button"></th>
+  </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let course of currentCourses">
-      <td>{{ course.id }}</td>
-      <td>{{ course.name }}</td>
-      <td>{{ course.status }}</td>
-      <td>{{ course.department.name }}</td>
-      <td>{{ course.espb }}</td>
-      <td>
-        <button class="btn btn-info" [routerLink]="['course-edit', course.id]">
-        </button>
-      </td>
-    </tr>
+  <tr *ngFor="let course of currentCourses">
+    <td>{{ course.id }}</td>
+    <td>{{ course.name }}</td>
+    <td>{{ course.status }}</td>
+    <td>{{ course.espb }}</td>
+    <td>{{ course.department.name }}</td>
+    <td class="button-data">
+      <button class="btn btn-info far fa-edit" [routerLink]="['course-edit', course.id]">
+      </button>
+    </td>
+  </tr>
   </tbody>
 </table>

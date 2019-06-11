@@ -13,12 +13,12 @@ export class LecturerService {
 
   constructor(private http: HttpClient) { } bg;
 
-  getAll(): Observable<any> {
-    return this.http.get(this.LECTURER_API);
+  getAll(): Observable<Lecturer[]> {
+    return this.http.get<Lecturer[]>(this.LECTURER_API);
   }
 
-  get(id: string) {
-    return this.http.get(this.LECTURER_API + '/' + id);
+  get(id: string): Observable<Lecturer> {
+    return this.http.get<Lecturer>(this.LECTURER_API + '/' + id);
   }
 
   getAllPaginated(pageNumber: number = 0, pageSize: number = 1): Observable<Lecturer[]> {
@@ -65,7 +65,7 @@ export class LecturerService {
     return this.http.get<Lecturer[]>(this.LECTURER_API + '/get?', { params });
   }
   getCount(): Observable<number> {
-    return this.http.get<number>('//localhost:8080/api/lecturers/count');
+    return this.http.get<number>(this.LECTURER_API + '/count');
   }
 
   save(lecturer: Lecturer): Observable<any> {

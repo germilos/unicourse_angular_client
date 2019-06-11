@@ -2,18 +2,27 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import "~bootstrap/dist/css/bootstrap.css";
 
+html, body {
+  height: 100%;
+}
+
+app-root {
+  flex: 1 0 auto;
+}
+
 body {
+  display: flex;
+  flex-direction: column;
   font-family: Roboto, sans-serif;
-  margin-left: 250px;
-  margin-right: 250px;
-  text-align: center;
-  /* display: inline-block; */
+  margin-left: 10%;
+  margin-right: 10%;
   background-color: blue;
 }
 
 .footer {
-  height: 50pt;
+  flex-shrink: 0;
+  height: 40pt;
   width: 100%;
-  background-color:white;
+  background-color: white;
   text-align: center;
 }

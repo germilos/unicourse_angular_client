@@ -27,6 +27,7 @@ export class CourseEditComponent implements OnInit {
   // Lecturers not selected for POST/PUT
   private selectLecturers: Lecturer[] = [];
   private courseForm: FormGroup;
+
   @ViewChild(CourseUnitsComponent)
   private courseUnits: CourseUnitsComponent;
 
@@ -44,9 +45,9 @@ export class CourseEditComponent implements OnInit {
   ngOnInit() {
     this.courseForm = this.formBuilder.group({
       'id': '',
-      'name': ['', [Validators.required, Validators.maxLength(50)]],
-      'espb': ['', Validators.required],
-      'goal': ['', [Validators.required, Validators.maxLength(200)]],
+      'name': new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z]*$')]),
+      'espb': new FormControl('', [Validators.required, Validators.max(6)]),
+      'goal': new FormControl('', [Validators.required, Validators.maxLength(200), Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z]*$')]),
       'status': '',
       'department': '',
       'studyProgram': ''
@@ -75,14 +76,14 @@ export class CourseEditComponent implements OnInit {
       if (id) {
         this.courseService.get(id)
           .subscribe(
-            (course: Course) => this.setRetrivedCourse(course),
+            (course: Course) => this.setRetrievedCourse(course),
             (error) => console.log(error)
           );
       }
     });
   }
 
-  setRetrivedCourse(course: Course): void {
+  setRetrievedCourse(course: Course): void {
     this.course = course;
     this.courseForm.patchValue({
       id: this.course.id,
@@ -105,6 +106,7 @@ export class CourseEditComponent implements OnInit {
   }
 
   addFormGroup(name: string, formGroup: FormGroup): void {
+    console.log('In add form group: ', formGroup.value);
     this.courseForm.addControl(name, formGroup.controls.lecturers);
   }
 
@@ -133,7 +135,6 @@ export class CourseEditComponent implements OnInit {
   }
 
   save(): void {
-    console.log(this.courseForm);
     this.courseService.save(this.courseForm.value).subscribe(
       result => {
         console.log(result);

@@ -13,6 +13,11 @@
       <div class="form-group item-2">
         <label for="ESPB">ESPB</label>
         <input type="number" formControlName="espb" class="form-control" id="ESPB" placeholder="ESPB..." />
+        <span
+          *ngIf="!courseForm.get('espb').valid && courseForm.get('espb').touched"
+          class="form-text text-muted">
+          Please enter valid espb number!
+        </span>
       </div>
       <div class="item-3">
         <h5 class="mini-title">Course Units:</h5>
@@ -50,6 +55,11 @@
         <label for="goal">Goal</label>
         <textarea type="text" rows="4" formControlName="goal" class="form-control goal" id="goal"
           placeholder="Goal..."></textarea>
+        <span
+          *ngIf="!courseForm.get('goal').valid && courseForm.get('goal').touched"
+          class="form-text text-muted">
+          Please enter valid goal!
+        </span>
       </div>
       <div class="item-8">
         <app-lecturer-select (formReady)="addFormGroup('lecturers', $event)" [course]="course ? course : null">

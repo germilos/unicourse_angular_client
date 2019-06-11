@@ -1,26 +1,42 @@
 <div class="container">
-  <app-search (keyupEvent)="onSearchChange($event)"></app-search>
-  <div *ngFor="let department of departments">
-    <input type="checkbox" [(ngModel)]="department.selected" (change)="getPage(0)" />
-    {{department.name}}
+  <div class="search-filter">
+    <app-search (keyupEvent)="onSearchChange($event)"></app-search>
+    <div class="filters">
+      <div *ngFor="let department of departments; let i = index">
+        <input type="checkbox" [(ngModel)]="department.selected" (change)="getPage(0)" id="department-{{i}}"/>
+<!--        {{department.name}}-->
+        <label for="department-{{i}}">{{department.name}}</label>
+      </div>
+    </div>
   </div>
   <app-lecturer-table *ngIf="routePath === 'lecturers'" [currentLecturers]="currentEntities$">
   </app-lecturer-table>
   <app-course-table *ngIf="routePath === 'courses'" [currentCourses]="currentEntities$">
   </app-course-table>
-  <button *ngFor="let item of pageSizeArray; let i = index" type="button" (click)="getPage(i)"
-    class="btn btn-warning">{{i}}</button>
-  <div *ngIf="routePath === 'lecturers'">
-    <button type="button" class="btn btn-info" [routerLink]="['professor-add']">
-      Add Professor
-    </button>
-    <button type="button" class="btn btn-info" [routerLink]="['assistant-add']">
-      Add Assistant
-    </button>
+  <div class="buttons">
+    <div class="buttons-add">
+      <div *ngIf="routePath === 'lecturers'">
+        <button type="button" class="btn btn-info" [routerLink]="['professor-add']">
+          Add Professor
+        </button>
+        <button type="button" class="btn btn-info" [routerLink]="['assistant-add']">
+          Add Assistant
+        </button>
+      </div>
+      <div *ngIf="routePath === 'courses'">
+        <button type="button" class="btn btn-info" [routerLink]="['course-add']">
+          Add Course
+        </button>
+      </div>
+    </div>
+    <div class="buttons-pagination">
+      <button type="button" class="btn btn-warning"><</button>
+      <button *ngFor="let item of pageSizeArray; let i = index" type="button" (click)="getPage(i)"
+              class="btn btn-warning">
+        {{i}}
+      </button>
+      <button type="button" class="btn btn-warning">></button>
+    </div>
   </div>
-  <div *ngIf="routePath === 'courses'">
-    <button type="button" class="btn btn-info" [routerLink]="['course-add']">
-      Add Course
-    </button>
-  </div>
+
 </div>

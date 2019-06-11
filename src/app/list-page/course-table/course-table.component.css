@@ -1,0 +1,37 @@
+.row-ID {
+  width: 5%;
+}
+
+.row-name {
+  width: 25%;
+}
+
+.row-status {
+  width: 12%;
+}
+
+.row-department {
+  width: 25%;
+}
+
+.row-espb {
+  width: 5%;
+}
+
+.row-button {
+  width: 7%;
+  text-align: center;
+}
+
+.button-data {
+  padding: 0.4%;
+}
+
+button {
+  width: 45%;
+  height: 55%;
+  text-align: center;
+  padding-left: 12.5%;
+  border-radius: 50%;
+}
+

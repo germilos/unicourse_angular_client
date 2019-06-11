@@ -1,6 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { VirtualTimeScheduler } from 'rxjs';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
+import {VirtualTimeScheduler} from 'rxjs';
 
 @Component({
   selector: 'app-course-units',
@@ -28,9 +28,11 @@ export class CourseUnitsComponent implements OnInit {
     return this.fb.group({
       number: new FormControl({
         value: this.courseUnits ?
-          this.courseUnits.controls[this.courseUnits.controls.length - 1]['controls'].number.value + 1 : 1, disabled: false
+          this.courseUnits.controls[this.courseUnits.controls.length - 1]['controls'].number.value + 1 : 1,
+        disabled: false
       }),
-      name: '',
+      name: new FormControl('', [Validators.required, Validators.maxLength(50),
+        Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9]*$')]),
       description: ''
     });
   }
@@ -77,7 +79,6 @@ export class CourseUnitsComponent implements OnInit {
         this.descriptions[i] = false;
       }
     });
-    console.log(this.descriptions[number]);
     return this.descriptions[number];
   }
 
