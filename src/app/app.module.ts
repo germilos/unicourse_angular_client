@@ -15,10 +15,12 @@ import {CourseTableComponent} from './list-page/course-table/course-table.compon
 import {CourseUnitsComponent} from './course-edit/course-units/course-units.component';
 import {LecturerSelectComponent} from './course-edit/lecturer-select/lecturer-select.component';
 import {LecturerEditComponent} from './lecturer-edit/lecturer-edit.component';
-import {Select2Module} from 'ng2-select2';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {httpInterceptorProviders} from './shared/security/auth-interceptor';
+import {NgbdModalBasic} from './shared/modal/modal-lecturer-view';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {MDBBootstrapModule} from 'angular-bootstrap-md';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import {httpInterceptorProviders} from './shared/security/auth-interceptor';
     LecturerSelectComponent,
     LecturerEditComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    NgbdModalBasic
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,7 @@ import {httpInterceptorProviders} from './shared/security/auth-interceptor';
     ReactiveFormsModule,
     FlexLayoutModule,
     FormsModule,
-    Select2Module
+    NgbModule
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
