@@ -4,12 +4,12 @@
       <input type="number" formControlName="number" class="form-control unit-number" placeholder="Unit number">
       <input formControlName="name" class="form-control" placeholder="Unit name">
       <button type="button" (click)="toggleDescription(i)" class="btn btn-square btn-warning delete-btn"><i
-          class="far fa-edit"></i></button>
+        class="far fa-edit"></i></button>
       <button type="button" (click)="deleteUnit(i)" class="btn btn-square btn-danger delete-btn">
         <i class="far fa-trash-alt"></i>
       </button>
       <textarea formControlName="description" *ngIf="descriptions[i]" class="form-control description"
-        placeholder="Unit description"></textarea>
+                placeholder="Unit description"></textarea>
     </div>
   </div>
 </form>

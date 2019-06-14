@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Lecturer } from 'src/app/lecturer';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Lecturer} from 'src/app/lecturer';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,10 @@ export class LecturerService {
   public API = '//localhost:8080/api';
   public LECTURER_API = this.API + '/lecturers';
 
-  constructor(private http: HttpClient) { } bg;
+  constructor(private http: HttpClient) {
+  }
+
+  bg;
 
   getAll(): Observable<Lecturer[]> {
     return this.http.get<Lecturer[]>(this.LECTURER_API);
@@ -34,7 +37,7 @@ export class LecturerService {
   }
 
   getAllByDepartmentsPaginated(departmentIds: number[], pageNumber: number = 0,
-    pageSize: number = 1): Observable<Lecturer[]> {
+                               pageSize: number = 1): Observable<Lecturer[]> {
     const departmentStrings: string[] = departmentIds.map((departmentId: number) => {
       return departmentId.toString();
     });
@@ -46,11 +49,11 @@ export class LecturerService {
       direction: 'ASC'
     };
 
-    return this.http.get<Lecturer[]>(this.LECTURER_API + '/get?', { params });
+    return this.http.get<Lecturer[]>(this.LECTURER_API + '/get?', {params});
   }
 
   getAllByNameAndDepartmentsPaginated(name: string, departmentIds: number[],
-    pageNumber: number = 0, pageSize: number = 1) {
+                                      pageNumber: number = 0, pageSize: number = 1) {
     const departmentStrings: string[] = departmentIds.map((departmentId: number) => {
       return departmentId.toString();
     });
@@ -62,8 +65,9 @@ export class LecturerService {
       orderBy: 'id',
       direction: 'ASC'
     };
-    return this.http.get<Lecturer[]>(this.LECTURER_API + '/get?', { params });
+    return this.http.get<Lecturer[]>(this.LECTURER_API + '/get?', {params});
   }
+
   getCount(): Observable<number> {
     return this.http.get<number>(this.LECTURER_API + '/count');
   }

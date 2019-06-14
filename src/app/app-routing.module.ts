@@ -1,11 +1,11 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component'
-import { CourseEditComponent } from './course-edit/course-edit.component';
-import { ListPageComponent } from './list-page/list-page.component';
-import { LecturerEditComponent } from './lecturer-edit/lecturer-edit.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {HomeComponent} from './home/home.component';
+import {CourseEditComponent} from './course-edit/course-edit.component';
+import {ListPageComponent} from './list-page/list-page.component';
+import {LecturerEditComponent} from './lecturer-edit/lecturer-edit.component';
+import {RegisterComponent} from './register/register.component';
+import {LoginComponent} from './login/login.component';
 
 const appRoutes: Routes = [
   {
@@ -73,4 +73,5 @@ const appRoutes: Routes = [
   imports: [RouterModule.forRoot(appRoutes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

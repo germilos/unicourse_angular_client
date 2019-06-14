@@ -1,6 +1,7 @@
 .container {
   width: 90%;
 }
+
 .filters > div {
   display: inline;
   min-width: 350px;
@@ -35,7 +36,7 @@
 
 .search-filter {
   display: grid;
-  grid-template-columns: 35% 56%;
+  grid-template-columns: 35% 57%;
   grid-template-rows: 100%;
 }
 

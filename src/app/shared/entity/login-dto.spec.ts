@@ -1,4 +1,4 @@
-import { LoginDto } from './login-dto';
+import {LoginDto} from './login-dto';
 
 describe('LoginDto', () => {
   it('should create an instance', () => {

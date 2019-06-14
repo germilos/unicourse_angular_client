@@ -109,3 +109,22 @@ textarea.ng-invalid.ng-touched {
   max-width: 40px;
   max-height: 40px;
 }
+
+span {
+  color: red;
+}
+
+.info {
+  display: inline;
+}
+
+.info > label {
+  display: inline;
+  float: left;
+}
+
+.info > span {
+  display: inline;
+  float: right;
+  margin-right: 5.5%;
+}

@@ -4,7 +4,6 @@
     <div class="filters">
       <div *ngFor="let department of departments; let i = index">
         <input type="checkbox" [(ngModel)]="department.selected" (change)="getPage(0)" id="department-{{i}}"/>
-<!--        {{department.name}}-->
         <label for="department-{{i}}">{{department.name}}</label>
       </div>
     </div>

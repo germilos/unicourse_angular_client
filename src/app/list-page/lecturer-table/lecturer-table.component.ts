@@ -1,5 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Lecturer } from 'src/app/lecturer';
+import {Component, OnInit, Input} from '@angular/core';
+import {Lecturer} from 'src/app/lecturer';
 
 @Component({
   selector: 'app-lecturer-table',
@@ -9,8 +9,8 @@ import { Lecturer } from 'src/app/lecturer';
 export class LecturerTableComponent implements OnInit {
 
   @Input() currentLecturers: Lecturer[];
-  
-  constructor() { 
+
+  constructor() {
     this.currentLecturers = [];
   }
 

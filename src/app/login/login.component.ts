@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
-import { LoginDto } from '../shared/entity/login-dto';
-import { AuthService } from '../shared/security/auth.service';
-import { TokenStorageService } from '../shared/security/token-storage.service';
-import { NgForm } from '@angular/forms';
+import {LoginDto} from '../shared/entity/login-dto';
+import {AuthService} from '../shared/security/auth.service';
+import {TokenStorageService} from '../shared/security/token-storage.service';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
   roles: string[] = [];
   private loginInfo: LoginDto;
 
-  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) { }
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService) {
+  }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {

@@ -65,3 +65,22 @@ label {
   grid-row: 4;
 }
 
+.info {
+  display: inline;
+}
+
+.info > label {
+  display: inline;
+  float: left;
+}
+
+.info > span {
+  display: inline;
+  float: right;
+  margin-right: 0%;
+}
+
+span {
+  color: red;
+}
+

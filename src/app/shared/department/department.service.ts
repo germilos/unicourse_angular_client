@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,18 +10,19 @@ export class DepartmentService {
   public API = '//localhost:8080/api';
   public DEPARTMENT_API = this.API + '/departments';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   getAll(): Observable<any> {
-    
-    
+
+
     const headers = new HttpHeaders({Authorization: 'Basic ' + btoa('test:test123')});
     return this.http.get(this.DEPARTMENT_API, {headers});
   }
 
   get(id: string) {
-    
-    
+
+
     const headers = new HttpHeaders({Authorization: 'Basic ' + btoa('test:test123')});
     return this.http.get(this.DEPARTMENT_API + '/' + id, {headers});
   }

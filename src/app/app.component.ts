@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { TokenStorageService } from './shared/security/token-storage.service';
+import {Component} from '@angular/core';
+import {TokenStorageService} from './shared/security/token-storage.service';
 
 
 @Component({
@@ -12,7 +12,8 @@ export class AppComponent {
   private authority: string;
   private username: string;
 
-  constructor(private tokenStorage: TokenStorageService) { }
+  constructor(private tokenStorage: TokenStorageService) {
+  }
 
   ngOnInit() {
     if (this.tokenStorage.getToken()) {

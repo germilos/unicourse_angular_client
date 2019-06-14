@@ -2,22 +2,27 @@
   <form [formGroup]="courseForm" (ngSubmit)="save()">
     <div class="wrapper">
       <div class="form-group item-1">
-        <label for="name">Name</label>
+        <div class="info">
+          <label for="name">Name</label>
+          <span
+            *ngIf="!courseForm.get('name').valid && courseForm.get('name').touched"
+            class="form-text">
+              Invalid
+          </span>
+        </div>
         <input type="text" formControlName="name" class="form-control" id="name" placeholder="Enter name..."/>
-        <span 
-          *ngIf="!courseForm.get('name').valid && courseForm.get('name').touched"
-          class="form-text text-muted">
-          Please enter valid name!
-        </span>
       </div>
       <div class="form-group item-2">
-        <label for="ESPB">ESPB</label>
-        <input type="number" formControlName="espb" class="form-control" id="ESPB" placeholder="ESPB..." />
-        <span
-          *ngIf="!courseForm.get('espb').valid && courseForm.get('espb').touched"
-          class="form-text text-muted">
-          Please enter valid espb number!
+        <div class="info">
+          <label for="ESPB">ESPB
+          </label>
+          <span
+            *ngIf="!courseForm.get('espb').valid && courseForm.get('espb').touched"
+            class="form-text">
+          Invalid
         </span>
+        </div>
+        <input type="number" formControlName="espb" class="form-control" id="ESPB" placeholder="ESPB..."/>
       </div>
       <div class="item-3">
         <h5 class="mini-title">Course Units:</h5>
@@ -54,7 +59,7 @@
       <div class="form-group item-7">
         <label for="goal">Goal</label>
         <textarea type="text" rows="4" formControlName="goal" class="form-control goal" id="goal"
-          placeholder="Goal..."></textarea>
+                  placeholder="Goal..."></textarea>
         <span
           *ngIf="!courseForm.get('goal').valid && courseForm.get('goal').touched"
           class="form-text text-muted">

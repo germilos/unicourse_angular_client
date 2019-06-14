@@ -5,47 +5,58 @@
         <input type="hidden" [(ngModel)]="model.id" class="form-control" name="id" id="id"/>
       </div>
       <div class="form-group item-1">
-        <label for="full-name">Full name</label>
-        <input type="text" [(ngModel)]="model.nameSurname" class="form-control" name="nameSurname" id="full-name"
-               placeholder="Enter name..." required #nameSurname="ngModel"/>
-        <span class="help-block" *ngIf="!nameSurname.valid && nameSurname.touched">
-            Please enter valid name and surname!
+        <div class="info">
+          <label for="full-name">Full name</label>
+          <span class="help-block" *ngIf="!nameSurname.valid && nameSurname.touched">
+            Invalid
           </span>
+        </div>
+        <input type="text" [(ngModel)]="model.nameSurname" class="form-control" name="nameSurname" id="full-name"
+               placeholder="Enter name..." required #nameSurname="ngModel" required maxLength="30"/>
       </div>
       <div class="form-group item-2">
         <label for="study-field">Study field</label>
-        <select class="custom-select" name="studyField" [(ngModel)]="model.studyField" id="study-field">
-          <option selected value="AI">Artificial Intelligence</option>
-          <option value="Management">Management</option>
+        <select class="custom-select" name="studyField"
+                [(ngModel)]="model.department?.id === 0 && studyPrograms ? studyPrograms[0] : model.studyField"
+                id="study-field">
+          <option *ngFor="let studyProgram of studyPrograms" [ngValue]="studyProgram">
+            {{studyProgram.name}}
+          </option>
         </select>
       </div>
       <div class="form-group item-3">
         <label for="department">Department</label>
-        <select class="custom-select" name="department" [(ngModel)]="model.department" id="department">
+        <select class="custom-select" name="department"
+                [(ngModel)]="model.department?.id === 0 && departments ? departments[0] : model.department"
+                id="department">
           <option *ngFor="let department of departments" [ngValue]="department">
             {{department.name}}
           </option>
         </select>
       </div>
       <div *ngIf="lecturerType === 'professor'" class="form-group item-4">
-        <label for="researchNumber">No. research papers</label>
+        <div class="info">
+          <label for="researchNumber">No. research papers</label>
+          <span class="help-block" *ngIf="!researchNumber.valid && researchNumber.touched">
+            Invalid
+          </span>
+        </div>
         <input type="number" name="researchNumber" class="form-control" [(ngModel)]="model.researchNumber"
                id="researchNumber"
                placeholder="Number of research papers..." required #researchNumber="ngModel"/>
-        <span class="help-block" *ngIf="!researchNumber.valid && researchNumber.touched">
-              Please enter valid number of research pappers!
-            </span>
       </div>
       <div *ngIf="lecturerType === 'professor'" class="form-group item-5">
         <label for="position">Position</label>
-        <select class="custom-select" name="position" [(ngModel)]="model.position" id="position">
-          <option selected value="Full Professor">Full Professor</option>
-          <option value="Associate Professor">Associate Professor</option>
+        <select class="custom-select" name="position"
+                [(ngModel)]="model.position.length === 0 ? positions[0] : model.position" id="position">
+          <option *ngFor="let position of positions">
+            {{ position }}
+          </option>
         </select>
       </div>
       <div *ngIf="lecturerType === 'assistant'" class="form-group item-4">
         <label for="diploma">Diploma</label>
-        <select class="custom-select" name="diploma" [(ngModel)]="model.diploma" id="diploma">
+        <select class="custom-select" name="diploma" [(ngModel)]="model.diploma.length === 0 ? diplomas[0] : model.diploma" id="diploma">
           <option selected value="Master">Master</option>
           <option value="Bachelor">Bachelor</option>
         </select>

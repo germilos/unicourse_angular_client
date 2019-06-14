@@ -43,20 +43,22 @@ export class CourseEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.courseForm = this.formBuilder.group({
-      'id': '',
-      'name': new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z]*$')]),
-      'espb': new FormControl('', [Validators.required, Validators.max(6)]),
-      'goal': new FormControl('', [Validators.required, Validators.maxLength(200), Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z]*$')]),
-      'status': '',
-      'department': '',
-      'studyProgram': ''
-    });
-
     this.requestDataFromMultipleSources().subscribe(responseList => {
       this.selectLecturers = responseList[0];
       this.departments = responseList[1];
       this.studyPrograms = responseList[2];
+
+      this.courseForm = this.formBuilder.group({
+        'id': '',
+        'name': new FormControl('', [Validators.required, Validators.maxLength(50),
+          Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
+        'espb': new FormControl('', [Validators.required, Validators.max(6)]),
+        'goal': new FormControl('', [Validators.required, Validators.maxLength(200),
+          Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
+        'status': 'Mandatory',
+        'department': this.departments[0],
+        'studyProgram': this.studyPrograms[0]
+      });
 
       this.checkForPassedCourse();
     });
@@ -106,7 +108,6 @@ export class CourseEditComponent implements OnInit {
   }
 
   addFormGroup(name: string, formGroup: FormGroup): void {
-    console.log('In add form group: ', formGroup.value);
     this.courseForm.addControl(name, formGroup.controls.lecturers);
   }
 
@@ -135,13 +136,18 @@ export class CourseEditComponent implements OnInit {
   }
 
   save(): void {
-    this.courseService.save(this.courseForm.value).subscribe(
-      result => {
-        console.log(result);
-        this.gotoList();
-      },
-      error => console.error(error)
-    );
+    console.log('from: ', this.courseForm.controls);
+    if (this.courseForm.controls['lecturers'].value.length > 0) {
+      this.courseService.save(this.courseForm.value).subscribe(
+        result => {
+          console.log(result);
+          this.gotoList();
+        },
+        error => alert(error)
+      );
+    } else {
+      alert('You must select at least one lecturer!');
+    }
   }
 
   gotoList(): void {

@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Department } from '../department';
-import { LecturerService } from '../shared/lecturer/lecturer.service';
-import { DepartmentService } from '../shared/department/department.service';
-import { Lecturer } from '../lecturer';
-import { angularMath } from 'angular-ts-math';
-import { CourseService } from '../shared/course/course.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Department} from '../department';
+import {LecturerService} from '../shared/lecturer/lecturer.service';
+import {DepartmentService} from '../shared/department/department.service';
+import {Lecturer} from '../lecturer';
+import {angularMath} from 'angular-ts-math';
+import {CourseService} from '../shared/course/course.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-list-page',
@@ -72,38 +72,39 @@ export class ListPageComponent implements OnInit {
     this.pageSizeArray = new Array(angularMath.nextIntegerOfNumber(
       totalElements / this.pageSize));
   }
+
   /*
   ** Get <this.pageSize> lecturers with <page>*10 offset and populate
   ** <currentLecturers>
   */
   getPage(page: number) {
     if ((!this.searchString || this.searchString === '')
-          && this.selectedDepartments.length === 0) {
+      && this.selectedDepartments.length === 0) {
       this.activeEntityService.getAllPaginated(page, this.pageSize).subscribe(
         (data: Lecturer[]) => {
-        this.currentEntities$ = data['content'];
-        this.setNumberOfPages(data['totalElements']);
-      });
+          this.currentEntities$ = data['content'];
+          this.setNumberOfPages(data['totalElements']);
+        });
     } else if (this.selectedDepartments.length > 0 &&
       (!this.searchString || this.searchString === '')) {
       this.activeEntityService.getAllByDepartmentsPaginated(this.selectedDepartments,
         page, this.pageSize).subscribe((data: Lecturer[]) => {
-          this.currentEntities$ = data['content'];
-          this.setNumberOfPages(data['totalElements']);
-        });
+        this.currentEntities$ = data['content'];
+        this.setNumberOfPages(data['totalElements']);
+      });
     } else if ((this.searchString && this.searchString.length > 0) &&
       this.selectedDepartments.length === 0) {
-         this.activeEntityService.getAllByNamePaginated(this.searchString, page,
-          this.pageSize).subscribe((data: Lecturer[]) => {
-            this.currentEntities$ = data['content'];
-            this.setNumberOfPages(data['totalElements']);
-          });
+      this.activeEntityService.getAllByNamePaginated(this.searchString, page,
+        this.pageSize).subscribe((data: Lecturer[]) => {
+        this.currentEntities$ = data['content'];
+        this.setNumberOfPages(data['totalElements']);
+      });
     } else {
       this.lecturerService.getAllByNameAndDepartmentsPaginated(this.searchString,
-         this.activeEntityService, page, this.pageSize).subscribe((data: Lecturer[]) => {
-          this.currentEntities$ = data['content'];
-          this.setNumberOfPages(data['totalElements']);
-        });
+        this.activeEntityService, page, this.pageSize).subscribe((data: Lecturer[]) => {
+        this.currentEntities$ = data['content'];
+        this.setNumberOfPages(data['totalElements']);
+      });
     }
   }
 }

@@ -1,7 +1,7 @@
 nav {
-    background-color: rgb(228, 120, 51);
+  background-color: rgb(228, 120, 51);
 }
 
-#navbarNavDropdown > ul > li > a{
-    color: white;
+#navbarNavDropdown > ul > li > a {
+  color: white;
 }

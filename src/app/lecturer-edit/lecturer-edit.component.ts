@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Lecturer } from '../lecturer';
-import { Department } from '../department';
-import { DepartmentService } from '../shared/department/department.service';
-import { LecturerService } from '../shared/lecturer/lecturer.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Assistant } from '../assistant';
-import { Professor } from '../professor';
-import { NgForm } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {Lecturer} from '../lecturer';
+import {Department} from '../department';
+import {DepartmentService} from '../shared/department/department.service';
+import {LecturerService} from '../shared/lecturer/lecturer.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Assistant} from '../assistant';
+import {Professor} from '../professor';
+import {NgForm} from '@angular/forms';
+import {StudyProgram} from '../study-program';
+import {StudyProgramService} from '../shared/study-program/study-program.service';
 
 @Component({
   selector: 'app-lecturer-edit',
@@ -17,12 +19,17 @@ export class LecturerEditComponent implements OnInit {
 
   private model: Lecturer;
   private departments: Department[];
+  private studyPrograms: StudyProgram[];
   private lecturerType: string;
 
+  private positions: string[] = ['Full Professor', 'Associate Professor'];
+  private diplomas: string[] = ['Master', 'Bachelor'];
+
   constructor(private departmentService: DepartmentService,
-    private lecturerService: LecturerService,
-    private route: ActivatedRoute,
-    private router: Router) {
+              private studyProgramService: StudyProgramService,
+              private lecturerService: LecturerService,
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -30,7 +37,10 @@ export class LecturerEditComponent implements OnInit {
     this.initializeNewModel();
     this.departmentService.getAll().subscribe((response: Department[]) => {
       this.departments = response;
-      this.checkForPassedLecturer();
+      this.studyProgramService.getAll().subscribe((response: StudyProgram[]) => {
+        this.studyPrograms = response;
+        this.checkForPassedLecturer();
+      });
     });
   }
 

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { SignUpDto } from '../shared/entity/sign-up-dto';
-import { AuthService } from '../shared/security/auth.service';
-import { NgForm } from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
+import {SignUpDto} from '../shared/entity/sign-up-dto';
+import {AuthService} from '../shared/security/auth.service';
+import {NgForm} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,20 +16,15 @@ export class RegisterComponent implements OnInit {
   isSignUpFailed = false;
   errorMessage = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,
+              private router: Router) {
+  }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
 
   onSubmit(form: NgForm) {
     console.log(form.value);
-
-    // this.signupInfo = new SignUpDto(
-    //   this.form.name,
-    //   this.form.username,
-    //   this.form.email,
-    //   this.form.password);
-      console.log("DTO: ", form.value);
-
     this.authService.signUp(form.value).subscribe(
       data => {
         console.log(data);
@@ -41,5 +37,9 @@ export class RegisterComponent implements OnInit {
         this.isSignUpFailed = true;
       }
     );
+  }
+
+  gotoList(): void {
+    this.router.navigate(['/courses']);
   }
 }

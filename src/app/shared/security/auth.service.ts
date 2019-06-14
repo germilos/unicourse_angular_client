@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { LoginDto } from '../entity/login-dto';
-import { JwtResponse } from '../entity/jwt-response';
-import { SignUpDto } from '../entity/sign-up-dto';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LoginDto} from '../entity/login-dto';
+import {JwtResponse} from '../entity/jwt-response';
+import {SignUpDto} from '../entity/sign-up-dto';
+import {Observable} from 'rxjs';
 import 'rxjs/Rx';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
 
 @Injectable({
@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   attemptAuth(credentials: LoginDto): Observable<JwtResponse> {
-    console.log("Credentials in auth: ", credentials);
+    console.log('Credentials in auth: ', credentials);
     return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
   }
 

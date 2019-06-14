@@ -1,4 +1,4 @@
-import { Assistant } from './assistant';
+import {Assistant} from './assistant';
 
 describe('Assistant', () => {
   it('should create an instance', () => {

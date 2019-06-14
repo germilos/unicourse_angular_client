@@ -1,9 +1,9 @@
 import {Component, OnInit, EventEmitter, Output, Input, ViewChild, OnChanges} from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Lecturer } from 'src/app/lecturer';
-import { LecturerService } from 'src/app/shared/lecturer/lecturer.service';
-import { Course } from 'src/app/course';
-import { Subject } from 'rxjs';
+import {FormGroup, FormBuilder, Validator, Validators, FormArray} from '@angular/forms';
+import {Lecturer} from 'src/app/lecturer';
+import {LecturerService} from 'src/app/shared/lecturer/lecturer.service';
+import {Course} from 'src/app/course';
+import {Subject} from 'rxjs';
 
 @Component({
   selector: 'app-lecturer-select',
@@ -20,7 +20,7 @@ export class LecturerSelectComponent implements OnInit, OnChanges {
   private flag = false;
 
   constructor(private fb: FormBuilder,
-    private lecturerService: LecturerService) {
+              private lecturerService: LecturerService) {
     this.formGroup = this.fb.group({
       selectLecturers: [[]],
       lecturers: [[]]
@@ -41,6 +41,7 @@ export class LecturerSelectComponent implements OnInit, OnChanges {
     if (this.course && this.course.lecturers && !this.flag) {
       this.flag = true;
       this.course.lecturers.forEach((lecturer: Lecturer) => {
+        console.log(this.formGroup);
         this.formGroup.controls['lecturers'].value
           .push(lecturer);
         this.lecturers.push(lecturer);

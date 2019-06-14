@@ -1,9 +1,11 @@
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+
 .container {
   height: 80%;
 }
+
 form {
   height: 100%;
   margin-top: 2%;
@@ -75,4 +77,23 @@ label {
 div[class^="item-"] {
   min-height: 100px;
   max-height: 100px;
+}
+
+.info {
+  display: inline;
+}
+
+.info > label {
+  display: inline;
+  float: left;
+}
+
+.info > span {
+  display: inline;
+  float: right;
+  margin-right: 0%;
+}
+
+span {
+  color: red;
 }
