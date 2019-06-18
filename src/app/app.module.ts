@@ -20,7 +20,7 @@ import {RegisterComponent} from './register/register.component';
 import {httpInterceptorProviders} from './shared/security/auth-interceptor';
 import {NgbdModalBasic} from './shared/modal/modal-lecturer-view';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {MDBBootstrapModule} from 'angular-bootstrap-md';
+import { SearchByNamePipe } from './shared/pipe/search-by-name.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
     LecturerEditComponent,
     LoginComponent,
     RegisterComponent,
-    NgbdModalBasic
+    NgbdModalBasic,
+    SearchByNamePipe
   ],
   imports: [
     BrowserModule,

@@ -12,8 +12,10 @@ import {Subject} from 'rxjs';
 })
 export class LecturerSelectComponent implements OnInit, OnChanges {
 
-  @Output() private formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
-  @Input() private course: Course;
+  @Output()
+  private formReady: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
+  @Input()
+  private course: Course;
   private readonly formGroup: FormGroup;
   private selectLecturers: Lecturer[];
   private lecturers: Lecturer[];
@@ -53,15 +55,19 @@ export class LecturerSelectComponent implements OnInit, OnChanges {
   }
 
   // Swap only selected lecturers
-  swapLecturers(from: string, to: string) {
-
+  swapLecturers(from: string, to: string, lecturersToSwap?: Lecturer[]) {
+    console.log(lecturersToSwap);
+    console.log('From: ', from);
     // Get the highlighted (selected) lecturers
-    const lecturersForSwap = this.formGroup.controls[from].value.map(result => {
+    const lecturersForSwap = lecturersToSwap ? lecturersToSwap : this.formGroup.controls[from].value.map(result => {
       return result;
     });
-
+    console.log('Lects for swap:', lecturersForSwap);
     // Moves from origin to destination select list
+    console.log('lecturers this', this[from]);
     lecturersForSwap.forEach((lecturer: Lecturer) => {
+      console.log('Lecturer: ', lecturer);
+      console.log('swapping: ', this[from].findIndex(i => i.id === lecturer.id));
       this[from].splice(this[from].indexOf(lecturer), 1);
       this[to].push(lecturer);
     });

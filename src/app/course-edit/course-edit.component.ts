@@ -43,22 +43,38 @@ export class CourseEditComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.courseForm = this.formBuilder.group({
+      'id': '',
+      'name': new FormControl('', [Validators.required, Validators.maxLength(50),
+        Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
+      'espb': new FormControl('', [Validators.required, Validators.max(6)]),
+      'goal': new FormControl('', [Validators.required, Validators.maxLength(200),
+        Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
+      'status': 'Mandatory',
+      'department': {},
+      'studyProgram': {}
+    });
+
     this.requestDataFromMultipleSources().subscribe(responseList => {
       this.selectLecturers = responseList[0];
       this.departments = responseList[1];
       this.studyPrograms = responseList[2];
 
-      this.courseForm = this.formBuilder.group({
-        'id': '',
-        'name': new FormControl('', [Validators.required, Validators.maxLength(50),
-          Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
-        'espb': new FormControl('', [Validators.required, Validators.max(6)]),
-        'goal': new FormControl('', [Validators.required, Validators.maxLength(200),
-          Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
-        'status': 'Mandatory',
+      this.courseForm.patchValue({
         'department': this.departments[0],
         'studyProgram': this.studyPrograms[0]
       });
+      // this.courseForm = this.formBuilder.group({
+      //   'id': '',
+      //   'name': new FormControl('', [Validators.required, Validators.maxLength(50),
+      //     Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
+      //   'espb': new FormControl('', [Validators.required, Validators.max(6)]),
+      //   'goal': new FormControl('', [Validators.required, Validators.maxLength(200),
+      //     Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
+      //   'status': 'Mandatory',
+      //   'department': this.departments[0],
+      //   'studyProgram': this.studyPrograms[0]
+      // });
 
       this.checkForPassedCourse();
     });
