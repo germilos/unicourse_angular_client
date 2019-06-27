@@ -1,7 +1,20 @@
 nav {
-  background-color: rgb(228, 120, 51);
+  background-color: #B1A296;
 }
 
 #navbarNavDropdown > ul > li > a {
+  color: white;
+}
+
+button {
+  background:none;
+  color: white;
+  border:none;
+  padding:0!important;
+  font: inherit;
+  cursor: pointer;
+}
+
+.navbar-brand {
   color: white;
 }

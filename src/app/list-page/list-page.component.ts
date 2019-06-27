@@ -34,7 +34,7 @@ export class ListPageComponent implements OnInit {
 
   initialize(): void {
 
-    this.pageSize = 5;
+    this.pageSize = 10;
     this.departments = [];
 
     this.routePath = this.router.url.slice(1);

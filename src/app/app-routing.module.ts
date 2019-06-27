@@ -6,6 +6,7 @@ import {ListPageComponent} from './list-page/list-page.component';
 import {LecturerEditComponent} from './lecturer-edit/lecturer-edit.component';
 import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from './login/login.component';
+import {AuthGuardService} from './shared/security/auth-guard.service';
 
 const appRoutes: Routes = [
   {
@@ -32,7 +33,8 @@ const appRoutes: Routes = [
         path: 'course-edit/:id',
         component: CourseEditComponent
       }
-    ]
+    ],
+    canActivate: [AuthGuardService]
   },
   {
     path: 'lecturers',
@@ -57,7 +59,8 @@ const appRoutes: Routes = [
         path: 'assistant-edit/:id',
         component: LecturerEditComponent
       }
-    ]
+    ],
+    canActivate: [AuthGuardService]
   },
   {
     path: 'new-user',

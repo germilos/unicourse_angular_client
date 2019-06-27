@@ -64,18 +64,6 @@ export class CourseEditComponent implements OnInit {
         'department': this.departments[0],
         'studyProgram': this.studyPrograms[0]
       });
-      // this.courseForm = this.formBuilder.group({
-      //   'id': '',
-      //   'name': new FormControl('', [Validators.required, Validators.maxLength(50),
-      //     Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
-      //   'espb': new FormControl('', [Validators.required, Validators.max(6)]),
-      //   'goal': new FormControl('', [Validators.required, Validators.maxLength(200),
-      //     Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9 ]*$')]),
-      //   'status': 'Mandatory',
-      //   'department': this.departments[0],
-      //   'studyProgram': this.studyPrograms[0]
-      // });
-
       this.checkForPassedCourse();
     });
   }
@@ -142,7 +130,7 @@ export class CourseEditComponent implements OnInit {
 
       this.course.courseUnits.forEach(courseUnit => {
         control.push(this.formBuilder.group({
-          number: new FormControl({value: courseUnit.number, disabled: false}),
+          number: new FormControl({value: courseUnit.number, disabled: true}),
           name: courseUnit.name,
           description: courseUnit.description
         }));
@@ -153,7 +141,7 @@ export class CourseEditComponent implements OnInit {
 
   save(): void {
     console.log('from: ', this.courseForm.controls);
-    if (this.courseForm.controls['lecturers'].value.length > 0) {
+    if (this.courseForm.controls['lecturers'] && this.courseForm.controls['lecturers'].value.length > 0) {
       this.courseService.save(this.courseForm.value).subscribe(
         result => {
           console.log(result);

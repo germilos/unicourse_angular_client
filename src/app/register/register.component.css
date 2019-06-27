@@ -1,12 +1,14 @@
+input, select {
+  background-color: #e5efff;
+}
+
 .container {
   height: 80%;
 }
 
 ng-template {
-
   height: 100%;
   width: 100%;
-
 }
 
 .wrapper {
@@ -26,7 +28,8 @@ form {
   width: 100%;
   margin-top: 2%;
   padding: 1%;
-  background-color: #FFFFE1;
+  background-color: white;
+  margin-left: 18%;
 }
 
 label {

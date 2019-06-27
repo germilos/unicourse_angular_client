@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
 
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
@@ -13,8 +14,8 @@ export class TokenStorageService {
   constructor() {
   }
 
-  signOut() {
-    window.sessionStorage.clear();
+  signOut(): Observable<void> {
+    return Observable.of(window.sessionStorage.clear());
   }
 
   public saveToken(token: string) {

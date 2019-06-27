@@ -1,3 +1,6 @@
+input, textarea {
+  background-color: #e5efff;
+}
 
 .item-3-3 {
   grid-row: 2;
@@ -5,7 +8,6 @@
   border-bottom: 1px solid black;
   border-left: 1px solid black;
   padding: 5px;
-
 }
 
 .description {

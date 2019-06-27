@@ -1,3 +1,6 @@
-<p>
-  home works!
-</p>
+<h3 *ngIf="tokenService.getToken()">
+  Welcome to Unicourse, {{tokenService.getUsername()}}!
+</h3>
+<h3 *ngIf="!tokenService.getToken()">
+  Welcome to Unicourse, please <a routerLink="/auth/login">log in.</a>
+</h3>

@@ -4,13 +4,15 @@ input.ng-invalid.ng-touched {
 
 .container {
   height: 80%;
+  margin-left: 25%;
 }
 
 form {
   height: 100%;
   margin-top: 2%;
   padding: 1%;
-  background-color: #FFFFE1;
+  text-align: center;
+  background-color: white;
 }
 
 label, select {
@@ -96,4 +98,13 @@ div[class^="item-"] {
 
 span {
   color: red;
+}
+
+input, select {
+  background-color: #e5efff;
+}
+
+.assistant {
+  grid-row: 3;
+  grid-column: 1;
 }

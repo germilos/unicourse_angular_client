@@ -1,3 +1,12 @@
+select {
+  background-color: #e5efff;
+}
+
+.container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 .custom-select {
   min-width: 235px;
 }
@@ -44,6 +53,9 @@ div {
   float: left;
 }
 
+.buttons {
+  margin-left: 4.2%;
+}
 .buttons > div {
   margin-left: 20px;
   margin-right: 20px;
@@ -53,4 +65,12 @@ div {
 
 .buttons > div {
   position: relative;
+}
+
+.select-lecturers {
+  margin-left: 4.1%;
+}
+
+input[id*="Filter"] {
+  width: 100%;
 }

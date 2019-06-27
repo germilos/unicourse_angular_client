@@ -1,0 +1,43 @@
+form {
+  margin-top: 2%;
+}
+
+h3 {
+  text-align: center;
+  margin-top: 5%;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-rows: 40% 30% 10%;
+  grid-template-columns: 40%;
+  margin-left: 33%;
+  margin-right: auto;
+}
+
+.item-1 {
+  grid-row: 1;
+}
+
+.item-1 label {
+  margin-bottom: 2%;
+}
+
+.item-2 {
+  grid-row: 2;
+}
+
+.item-2 label {
+  margin-bottom: 2%;
+}
+
+.item-3 {
+  grid-row: 3;
+  margin-top: 4%;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+button {
+  width: 100%;
+}

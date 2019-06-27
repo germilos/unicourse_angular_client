@@ -56,7 +56,8 @@
       </div>
       <div *ngIf="lecturerType === 'assistant'" class="form-group item-4">
         <label for="diploma">Diploma</label>
-        <select class="custom-select" name="diploma" [(ngModel)]="model.diploma.length === 0 ? diplomas[0] : model.diploma" id="diploma">
+        <select class="custom-select" name="diploma"
+                [(ngModel)]="model.diploma.length === 0 ? diplomas[0] : model.diploma" id="diploma">
           <option selected value="Master">Master</option>
           <option value="Bachelor">Bachelor</option>
         </select>
@@ -64,8 +65,9 @@
       <div class="form-group item-6">
         <input type="hidden" [ngModel]="model.type" value="this.lecturerType === 'professor' ? P : A" name="type"/>
       </div>
-      <div class="item-7">
-        <button type="submit" class="btn btn-primary"
+      <div
+        [className]="lecturerType === 'professor' ? 'item-7 professor' : 'item-7 assistant'">
+        <button type="submit" class="btn btn-success"
                 [disabled]="!lecturerForm.valid">Save
         </button>
       </div>

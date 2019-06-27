@@ -2,12 +2,21 @@
             General styling
 ********************************************/
 .container {
-  min-width: 100%;
+  min-width: 80%;
 }
 
-.container > form {
+@media only screen and (max-width: 1536px) {
+  .container {
+    min-width: 100%;
+  }
+}
+
+form {
   padding: 1%;
-  background-color: #FFFFE1;
+  text-align: center;
+  margin-left: 9%;
+  max-width: 80%;
+  background-color: white;
 }
 
 .custom-select, .form-control {
@@ -25,7 +34,7 @@ label, select {
 .wrapper {
   display: grid;
   grid-template-columns: 29% 29% 30%;
-  grid-template-rows: 70px 70px 70px 150px 150px 70px;
+  grid-template-rows: 70px 70px 70px 150px 180px 70px;
 }
 
 .wrapper > div {
@@ -34,6 +43,10 @@ label, select {
 
 form {
   margin-top: 2%;
+}
+
+input, select, textarea {
+  background-color: #e5efff;
 }
 
 label {
@@ -50,7 +63,7 @@ label {
   margin-top: -13px;
   margin-left: 30px;
   display: grid;
-  grid-template-rows: 40px 470px 100px;
+  grid-template-rows: 40px 513px 100px;
   grid-template-columns: 460px;
 }
 
@@ -61,7 +74,6 @@ label {
   border-left: 1px solid black;
   padding: 5px;
   overflow-y: scroll;
-
 }
 
 .btn-add-course-unit {
@@ -83,6 +95,7 @@ label {
 }
 
 .item-9 {
+  margin-top: 4%;
   grid-row: 6;
   grid-column: 1;
 }

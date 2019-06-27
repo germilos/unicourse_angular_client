@@ -30,7 +30,7 @@
           <app-course-units (formReady)="addFormArray('courseUnits', $event)">
           </app-course-units>
         </div>
-        <button type="button" (click)="addItem()" class="btn btn-pill btn-success btn-add-course-unit"><i
+        <button type="button" (click)="addItem()" class="btn btn-pill btn-primary btn-add-course-unit"><i
           class="fas fa-plus"></i></button>
       </div>
       <div class="form-group item-4">
@@ -71,7 +71,7 @@
         </app-lecturer-select>
       </div>
       <div class="item-9">
-        <button type="submit" class="btn btn-primary" [disabled]="!courseForm.valid">Save</button>
+        <button type="submit" class="btn btn-success" [disabled]="!courseForm.valid">Save</button>
       </div>
     </div>
   </form>

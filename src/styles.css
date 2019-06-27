@@ -2,7 +2,11 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import "~bootstrap/dist/css/bootstrap.css";
 
-html, body {
+html {
+  background-color: white;
+}
+
+body, html {
   height: 100%;
 }
 
@@ -11,18 +15,32 @@ app-root {
 }
 
 body {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   font-family: Roboto, sans-serif;
+  background-color: white;
+}
+
+app-list-page {
   margin-left: 10%;
   margin-right: 10%;
-  background-color: blue;
 }
 
 .footer {
   flex-shrink: 0;
-  height: 40pt;
+  height: 60pt;
   width: 100%;
-  background-color: white;
   text-align: center;
+  background-color: #B1A296;
+  color: white;
+}
+
+.footer > p:nth-child(1) {
+  margin-bottom: 0;
+  margin-top: 1%;
+}
+
+input, textarea {
+  background-color: #FFFFF1;
 }

@@ -2,12 +2,12 @@
   <div class="form-group">
     <label for="selectLecturers">Available lecturers</label>
     <select class="custom-select lecturer-select" formControlName="selectLecturers" multiple data-live-search="true"
-            id="selectLecturers" #selLects>
-      <option *ngFor="let lecturer of selectLecturers" [ngValue]="lecturer">
+            id="selectLecturers">
+      <option *ngFor="let lecturer of selectLecturers | searchByName: searchTextSelectLecturers" [ngValue]="lecturer">
         {{lecturer.nameSurname}}
       </option>
     </select>
-    <ngbd-modal-basic (lecturersToSwap)="swapLecturers('selectLecturers', 'lecturers', $event)" [lecturers]="selectLecturers"></ngbd-modal-basic>
+    <input #selectLecturersFilter class="form-control" type="text" placeholder="Search..." id="selectLecturersFilter"(keyup)="filterLecturers($event)"/>
   </div>
   <div class="buttons">
     <div class="buttons-swap">
@@ -23,14 +23,14 @@
               class="btn btn-square btn-primary"><i class="fas fa-angle-double-right"></i></button>
     </div>
   </div>
-  <div class="form-group">
+  <div class="form-group select-lecturers">
     <label for="lecturers">Selected Lecturers</label>
     <select class="custom-select lecturer-select" multiple data-live-search="true" formControlName="lecturers"
-            id="lecturers" #selectedLecturers>
-      <option *ngFor="let lecturer of lecturers" [ngValue]="lecturer" selected>
+            id="lecturers">
+      <option *ngFor="let lecturer of lecturers | searchByName: searchTextLecturers" [ngValue]="lecturer" selected>
         {{lecturer.nameSurname}}
       </option>
     </select>
-    <ngbd-modal-basic (lecturersToSwap)="swapLecturers('lecturers', 'selectLecturers', $event)" [lecturers]="lecturers+"></ngbd-modal-basic>
+    <input #lecturersFilter class="form-control" type="text" placeholder="Search..." id="lecturersFilter" (keyup)="filterLecturers($event)"/>
   </div>
 </form>

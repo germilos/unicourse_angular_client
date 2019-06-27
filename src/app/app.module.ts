@@ -18,9 +18,9 @@ import {LecturerEditComponent} from './lecturer-edit/lecturer-edit.component';
 import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {httpInterceptorProviders} from './shared/security/auth-interceptor';
-import {NgbdModalBasic} from './shared/modal/modal-lecturer-view';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { SearchByNamePipe } from './shared/pipe/search-by-name.pipe';
+import {AuthGuardService} from './shared/security/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,6 @@ import { SearchByNamePipe } from './shared/pipe/search-by-name.pipe';
     LecturerEditComponent,
     LoginComponent,
     RegisterComponent,
-    NgbdModalBasic,
     SearchByNamePipe
   ],
   imports: [
@@ -49,7 +48,7 @@ import { SearchByNamePipe } from './shared/pipe/search-by-name.pipe';
     FormsModule,
     NgbModule
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

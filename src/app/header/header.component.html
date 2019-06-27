@@ -1,18 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
   <a class="navbar-brand" routerLink="home"><b>{{title}}</b></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
   <div id="navbarNavDropdown" class="navbar-collapse collapse">
-    <ul class="navbar-nav mr-auto" routerLinkActive="active">
-      <li class="nav-item">
+    <ul class="navbar-nav mr-auto" >
+      <li [routerLinkActive]="['active']" class="nav-item">
         <a class="nav-link" routerLink="courses">Courses</a>
       </li>
-      <li class="nav-item">
+      <li [routerLinkActive]="['active']" class="nav-item">
         <a class="nav-link" routerLink="lecturers">Lecturers</a>
       </li>
-      <li *ngIf="authority === 'admin'" class="nav-item">
+      <li [routerLinkActive]="['active']" *ngIf="authority === 'admin'" class="nav-item">
         <a class="nav-link" routerLink="new-user">Add new user</a>
       </li>
     </ul>
@@ -22,9 +18,6 @@
       </li>
       <li *ngIf="authority" class="nav-item">
         <button type="button" (click)="logout()">Logout</button>
-      </li>
-      <li *ngIf="authority" class="nav-item">
-        <span>{{username}}</span>
       </li>
     </ul>
   </div>

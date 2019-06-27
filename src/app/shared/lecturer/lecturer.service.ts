@@ -14,8 +14,6 @@ export class LecturerService {
   constructor(private http: HttpClient) {
   }
 
-  bg;
-
   getAll(): Observable<Lecturer[]> {
     return this.http.get<Lecturer[]>(this.LECTURER_API);
   }
