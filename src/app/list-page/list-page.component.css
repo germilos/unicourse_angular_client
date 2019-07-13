@@ -38,6 +38,11 @@ input {
   margin-left: 0.5%;
 }
 
+.buttons-pagination > button:active {
+  transform: translateY(1px);
+  filter: saturate(150%);
+}
+
 .search-filter {
   display: grid;
   grid-template-columns: 35% 55%;

@@ -16,13 +16,8 @@
       </div>
       <div class="form-group item-2">
         <label for="study-field">Study field</label>
-        <select class="custom-select" name="studyField"
-                [(ngModel)]="model.department?.id === 0 && studyPrograms ? studyPrograms[0] : model.studyField"
-                id="study-field">
-          <option *ngFor="let studyProgram of studyPrograms" [ngValue]="studyProgram">
-            {{studyProgram.name}}
-          </option>
-        </select>
+        <input type="text" [(ngModel)]="model.studyField" class="form-control" name="studyField" id="study-field"
+               placeholder="Enter study field..." required #studyField="ngModel" required maxLength="30"/>
       </div>
       <div class="form-group item-3">
         <label for="department">Department</label>
@@ -57,7 +52,7 @@
       <div *ngIf="lecturerType === 'assistant'" class="form-group item-4">
         <label for="diploma">Diploma</label>
         <select class="custom-select" name="diploma"
-                [(ngModel)]="model.diploma.length === 0 ? diplomas[0] : model.diploma" id="diploma">
+                [(ngModel)]="!model.diploma ? diplomas[0] : model.diploma" id="diploma">
           <option selected value="Master">Master</option>
           <option value="Bachelor">Bachelor</option>
         </select>

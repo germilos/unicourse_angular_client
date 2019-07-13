@@ -29,12 +29,12 @@
       </div>
     </div>
     <div class="buttons-pagination">
-      <button type="button" class="btn btn-warning"><</button>
+      <button type="button" class="btn btn-warning" (click)="getPage(currentPage - 1)"><</button>
       <button *ngFor="let item of pageSizeArray; let i = index" type="button" (click)="getPage(i)"
               class="btn btn-warning">
         {{i}}
       </button>
-      <button type="button" class="btn btn-warning">></button>
+      <button type="button" class="btn btn-warning" (click)="getPage(currentPage + 1)">></button>
     </div>
   </div>
 

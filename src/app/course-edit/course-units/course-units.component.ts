@@ -29,7 +29,7 @@ export class CourseUnitsComponent implements OnInit {
       number: new FormControl({
         value: this.courseUnits ?
           this.courseUnits.controls[this.courseUnits.controls.length - 1]['controls'].number.value + 1 : 1,
-        disabled: true
+        disabled: false
       }),
       name: new FormControl('', [Validators.required, Validators.maxLength(50),
         Validators.pattern('(?!^.*[A-Z]{2,}.*$)^[A-Z][a-z0-9]*$')]),

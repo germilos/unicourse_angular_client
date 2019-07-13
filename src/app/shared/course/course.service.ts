@@ -85,7 +85,7 @@ export class CourseService {
 
   save(course: any): Observable<any> {
     let result: Observable<Object>;
-    console.log(course);
+    console.log('Course to save: ', course);
     // Remove 'selectLecturers' attribute - only used for list swap
     delete course.selectLecturers;
     const courseToSave: Course = course;

@@ -91,6 +91,8 @@ export class CourseEditComponent implements OnInit {
 
   setRetrievedCourse(course: Course): void {
     this.course = course;
+    console.log('Retreived course original: ', course);
+    console.log('Retreived course now: ', this.course);
     this.courseForm.patchValue({
       id: this.course.id,
       name: this.course.name,
@@ -130,7 +132,7 @@ export class CourseEditComponent implements OnInit {
 
       this.course.courseUnits.forEach(courseUnit => {
         control.push(this.formBuilder.group({
-          number: new FormControl({value: courseUnit.number, disabled: true}),
+          number: new FormControl({value: courseUnit.number, disabled: false}),
           name: courseUnit.name,
           description: courseUnit.description
         }));
@@ -140,11 +142,10 @@ export class CourseEditComponent implements OnInit {
   }
 
   save(): void {
-    console.log('from: ', this.courseForm.controls);
     if (this.courseForm.controls['lecturers'] && this.courseForm.controls['lecturers'].value.length > 0) {
       this.courseService.save(this.courseForm.value).subscribe(
         result => {
-          console.log(result);
+          console.log('Saved course: ', result);
           this.gotoList();
         },
         error => alert(error)

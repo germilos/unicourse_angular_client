@@ -65,6 +65,7 @@ export class LecturerSelectComponent implements OnInit, OnChanges {
           return e.id;
         }).indexOf(lecturer.id), 1);
       });
+      this.formReady.emit(this.formGroup);
     }
   }
 
@@ -116,7 +117,7 @@ export class LecturerSelectComponent implements OnInit, OnChanges {
     });
 
     /*
-     * Iterate thorugh origin and push to destination list (control and HTML)
+     * Iterate through origin and push to destination list (control and HTML)
      * element
      * Splice from origin
      */

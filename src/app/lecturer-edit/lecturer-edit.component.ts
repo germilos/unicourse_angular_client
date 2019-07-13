@@ -37,10 +37,7 @@ export class LecturerEditComponent implements OnInit {
     this.initializeNewModel();
     this.departmentService.getAll().subscribe((response: Department[]) => {
       this.departments = response;
-      this.studyProgramService.getAll().subscribe((response: StudyProgram[]) => {
-        this.studyPrograms = response;
-        this.checkForPassedLecturer();
-      });
+      this.checkForPassedLecturer();
     });
   }
 
@@ -50,6 +47,7 @@ export class LecturerEditComponent implements OnInit {
       if (id) {
         this.lecturerService.get(id).subscribe((lecturer: Lecturer) => {
           this.model = lecturer;
+          console.log('Model: ', this.model);
           this.model.department = this.findLecturerDepartment(
             this.model.department);
         });
