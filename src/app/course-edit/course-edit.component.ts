@@ -145,7 +145,7 @@ export class CourseEditComponent implements OnInit {
     if (this.courseForm.controls['lecturers'] && this.courseForm.controls['lecturers'].value.length > 0) {
       this.courseService.save(this.courseForm.value).subscribe(
         result => {
-          console.log('Saved course: ', result);
+          alert('Successfully saved course!');
           this.gotoList();
         },
         error => alert(error)

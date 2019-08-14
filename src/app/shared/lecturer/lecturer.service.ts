@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
+import {Observable, Subject} from 'rxjs';
 import {Lecturer} from 'src/app/lecturer';
 
 @Injectable({
@@ -10,6 +10,9 @@ export class LecturerService {
 
   public API = '//localhost:8080/api';
   public LECTURER_API = this.API + '/lecturers';
+
+  private emitChangeSource = new Subject<void>();
+  changeEmitted$ = this.emitChangeSource.asObservable();
 
   constructor(private http: HttpClient) {
   }
@@ -70,8 +73,8 @@ export class LecturerService {
     return this.http.get<number>(this.LECTURER_API + '/count');
   }
 
-  save(lecturer: Lecturer): Observable<any> {
-    let result: Observable<Object>;
+  save(lecturer: Lecturer): Observable<Lecturer> {
+    let result: Observable<Lecturer>;
     if (lecturer['id']) {
       result = this.http.put(this.LECTURER_API, lecturer);
     } else {
@@ -80,7 +83,13 @@ export class LecturerService {
     return result;
   }
 
-  remove(href: string) {
-    return this.http.delete(href);
+  remove(lecturerId: number): Observable<any> {
+    const params = new HttpParams();
+    params.set('lecturerId', lecturerId.toString());
+    return this.http.delete(this.LECTURER_API + '?lecturerId=' + lecturerId);
+  }
+
+  emit(): void {
+    this.emitChangeSource.next();
   }
 }

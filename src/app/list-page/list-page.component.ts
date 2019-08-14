@@ -16,7 +16,7 @@ export class ListPageComponent implements OnInit {
 
   private currentEntities$: any[];
   private routePath: string;
-  private activeEntityService: any;
+  private activeEntityService: LecturerService | CourseService;
   private pageSizeArray: any[];
   private searchString: string;
   private pageSize: number;
@@ -45,6 +45,10 @@ export class ListPageComponent implements OnInit {
     } else if (this.routePath === 'courses') {
       this.activeEntityService = this.courseService;
     }
+
+    this.activeEntityService.changeEmitted$.subscribe(() => {
+      this.doTableRefresh();
+    });
 
     this.getPage(0);
     // Get all departments for filtering
@@ -80,8 +84,6 @@ export class ListPageComponent implements OnInit {
   ** <currentLecturers>
   */
   getPage(page: number) {
-    console.log('Getting: ', page);
-    console.log('Page size array: ', this.pageSizeArray.length);
     if (page >= 0 && (page === this.pageSizeArray.length || page < this.pageSizeArray.length - 1)) {
       this.currentPage = page;
 
@@ -114,5 +116,9 @@ export class ListPageComponent implements OnInit {
         });
       }
     }
+  }
+
+  doTableRefresh(): void {
+    this.getPage(0);
   }
 }

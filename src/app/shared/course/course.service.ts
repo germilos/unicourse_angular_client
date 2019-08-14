@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import 'rxjs/Rx';
 import {Course} from 'src/app/course';
 
@@ -10,6 +10,9 @@ import {Course} from 'src/app/course';
 export class CourseService {
   public API = '//localhost:8080/api';
   public COURSE_API = this.API + '/courses';
+
+  private emitChangeSource = new Subject<void>();
+  changeEmitted$ = this.emitChangeSource.asObservable();
 
   constructor(private http: HttpClient) {
   }
@@ -98,7 +101,11 @@ export class CourseService {
     return result;
   }
 
-  remove(href: string) {
-    return this.http.delete(href);
+  remove(courseId: number) {
+    return this.http.delete(this.COURSE_API + '?courseId=' + courseId);
+  }
+
+  emit(): void {
+    this.emitChangeSource.next();
   }
 }

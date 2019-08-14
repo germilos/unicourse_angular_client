@@ -58,6 +58,7 @@ export class LecturerEditComponent implements OnInit {
   save(form: NgForm): void {
     this.lecturerService.save(form.value).subscribe(
       result => {
+        alert('Successfully saved lecturer!');
         this.gotoList();
       },
       error => console.log(error)

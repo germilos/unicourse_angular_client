@@ -19,6 +19,7 @@
     <td class="button-data">
       <button class="btn btn-info far fa-edit" [routerLink]="['course-edit', course.id]">
       </button>
+      <button class="btn btn-danger far fa-trash-alt" (click)="deleteCourse(course.id)"></button>
     </td>
   </tr>
   </tbody>

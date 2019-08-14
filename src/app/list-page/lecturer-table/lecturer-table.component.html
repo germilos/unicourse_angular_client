@@ -20,6 +20,7 @@
       <button class="btn btn-info far fa-edit"
               [routerLink]="[lecturer.type === 'P' ? 'professor-edit' :
           'assistant-edit', lecturer.id]"></button>
+      <button class="btn btn-danger far fa-trash-alt" (click)="deleteLecturer(lecturer.id)"></button>
     </td>
   </tr>
   </tbody>
