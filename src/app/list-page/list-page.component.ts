@@ -69,8 +69,10 @@ export class ListPageComponent implements OnInit {
   }
 
   onSearchChange(inputString: string) {
+    console.log('Search change: ', inputString);
     this.searchString = inputString;
     this.getPage(0);
+    console.log('Got page');
   }
 
   // Set number of pages to display
@@ -84,8 +86,11 @@ export class ListPageComponent implements OnInit {
   ** <currentLecturers>
   */
   getPage(page: number) {
-    if (page >= 0 && (page === this.pageSizeArray.length || page < this.pageSizeArray.length - 1)) {
+    console.log('Current page: ', page);
+    console.log('PAge size array len: ', this.pageSizeArray.length);
+    if (page >= 0) {
       this.currentPage = page;
+      console.log('Getting page inside getPage');
 
       if ((!this.searchString || this.searchString === '')
         && this.selectedDepartments.length === 0) {

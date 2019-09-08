@@ -73,8 +73,8 @@ export class LecturerService {
     return this.http.get<number>(this.LECTURER_API + '/count');
   }
 
-  save(lecturer: Lecturer): Observable<Lecturer> {
-    let result: Observable<Lecturer>;
+  save(lecturer: Lecturer): Observable<Object> {
+    let result: Observable<Object>;
     if (lecturer['id']) {
       result = this.http.put(this.LECTURER_API, lecturer);
     } else {
